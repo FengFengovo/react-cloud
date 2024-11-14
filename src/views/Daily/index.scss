@@ -1,0 +1,45 @@
+.play-all-btn,.love-all-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+                    45deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+    );
+    transform: translate(-100%, -100%);
+    transition: all 0.5s ease;
+  }
+
+  &:hover {
+    background-color: #fa3d49 !important;
+    &::after {
+      transform: translate(0, 0);
+    }
+  }
+}
+.ant-btn{
+  background-color: #fa3d49;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  &:hover{
+    color: #fff !important;
+  }
+}
+.love-all-btn{
+  background-color: #222329;
+  &:hover{
+    background-color: #222329 !important;
+  }
+}

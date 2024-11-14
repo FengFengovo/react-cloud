@@ -1,0 +1,56 @@
+
+.ant-tabs {
+  .ant-tabs-nav {
+    &::before {
+      border: none;
+    }
+  }
+  .ant-tabs-nav-list {
+    .ant-tabs-ink-bar {
+      background: #fa3d49 !important;
+    }
+    width: 100% !important;
+  }
+}
+
+.ant-tabs-tab {
+  color: gray !important;
+  position: relative;
+
+  .ant-tabs-tab-btn {
+    font-size: 14px;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+
+    &::after {
+      content: attr(title);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 15.4px; // 稍微大一点的字体
+      color: transparent;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+}
+
+.ant-tabs-tab-active {
+  .ant-tabs-tab-btn {
+    color: white !important;
+    font-size: 15.4px; // 与伪元素相同的大小
+  }
+}
+.ant-tabs-content-holder{
+  .ant-tabs-content{
+    height: 100%;
+    .ant-tabs-tabpane{
+      height: 100%;
+    }
+  }
+
+}
+
+

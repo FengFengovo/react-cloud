@@ -1,0 +1,21 @@
+.ant-slider-handle{
+  &::after{
+    width: 6px !important;
+    height: 6px !important;
+    position: relative;
+    display: none;
+  }
+}
+.ant-slider{
+  position: relative;
+  top: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.ant-slider-track{
+  height: 6px !important;
+}
+.nodrag{
+  -webkit-app-region:no-drag;//设置头部可拖拽
+  -webkit-user-select:none;//禁用文本选择 防止在拖动范围内选中了文字
+}
