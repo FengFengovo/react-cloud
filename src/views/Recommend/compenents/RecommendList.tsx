@@ -1,18 +1,10 @@
-import {getResourceAPI} from '@/apis/recommend.ts'
-import {useEffect, useState} from "react";
+
 import picImg from '@/assets/default.jpg'
 import {useNavigate} from "react-router-dom";
-function RecommendList() {
-    const [recommend, setRecommend] = useState([])
+function RecommendList({recommend}) {
+
     const navigate = useNavigate()
-    useEffect(() => {
-        const getResource = async () => {
-            const res = await getResourceAPI()
-            setRecommend(res.recommend)
-            console.log(res.recommend)
-        }
-        getResource()
-    }, [])
+
     return (
 
         <div className={'h-full w-full flex items-center justify-center'}>  {/* 新增外层容器 */}

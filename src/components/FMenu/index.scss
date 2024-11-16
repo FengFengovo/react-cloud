@@ -1,0 +1,19 @@
+.ant-divider{
+  margin: 8px !important;
+
+}
+.ant-menu{
+  width: 90%;
+  margin: 0 auto;
+  background-color: #eceff2;
+  border-right:none !important;
+  .ant-menu-item-selected{
+    background-color: #fa3d49;
+    color: #fff;
+  }
+}
+.ant-menu-item-divider{
+  width: 80%;
+  margin: 0 auto;
+  background-color: #ede5e5;
+}

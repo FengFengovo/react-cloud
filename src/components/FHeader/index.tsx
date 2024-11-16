@@ -1,17 +1,16 @@
 import {Button, Modal, QRCode} from "antd";
 import './index.scss'
 import useQR from "@/components/FHeader/useQR.ts";
-import useLoginStatus from "@/pages/Layout/useLoginStatus.ts";
+import {useSelector} from "react-redux";
 
 const FHeader=()=>{
     const {showQR,setShowQR,qrUrl} = useQR()
-    const {loginStatus} = useLoginStatus()
+    const {isLogin} =useSelector(state => state.user)
     return(
-        <div className={'bg-black flex flex-col'}>
-            <div className={'bg-red h-10px drag'}>123</div>
-            <div className={'nodrag'}>
-                {!loginStatus&& <Button onClick={()=>setShowQR(true)}>登录</Button>}
-
+        <div className={'bg-red h-full flex  flex-col'}>
+            <div className={'h-10px bg-pink  drag'}></div>
+            <div>
+                { !isLogin && <Button onClick={()=>setShowQR(true)}>登录</Button>}
                 <Modal
                     title="请使用网易云APP扫码"
                     open={showQR}

@@ -1,11 +1,46 @@
+import {useSelector} from "react-redux";
+import './index.scss'
+//未播放情况下默认封面
+import defaultImg from '@/assets/default.jpg'
 
-const PlayerLeft=()=>{
-    return(
-        <div className={'flex items-center ml-10px'}>
-            <div className={'h-50px  w-50px bg-gray'}></div>
-            <div className={'flex h-50px ml-5px flex-col justify-between'}>
-                <span className={'font-bold text-sm'}>同花顺</span>
-                <span className={'text-sm color-gray'}>林琪玉</span>
+
+interface SongInfo {
+    name: string;
+    al: {
+        picUrl: string;
+    },
+    ar: [
+        name: string
+    ]
+}
+
+const PlayerLeft = () => {
+    const isPlaying = useSelector(state => state.playing.isPlaying);
+    const songInfo: SongInfo = useSelector(state => state.playing.songInfo)
+    //弹出层状态
+
+    return (
+        <div onClick={e => e.stopPropagation()} className={'flex items-center ml-20px w-150px text-nowrap z-999'}>
+
+            <div className={'flex items-center'}>
+                <div className="record-container">
+                    <img
+                        src={songInfo ? songInfo?.al?.picUrl : defaultImg}
+                        className={`record-img ${isPlaying ? 'rotate-animation' : 'rotate-animation paused'}`}
+                    />
+                </div>
+            </div>
+            <div className={'flex h-50px ml-15px flex-col justify-around '}>
+                <div className="scroll-container">
+                    <span className="scroll-text font-bold text-white text-sm">
+                        {songInfo ? songInfo.name : '未播放歌曲'}
+                     </span>
+                </div>
+                <div>
+                    <span className="scroll-text text-sm text-gray-400">
+                        {songInfo ? songInfo.ar[0].name : '未播放'}
+                     </span>
+                </div>
             </div>
         </div>
     )

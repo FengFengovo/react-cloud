@@ -1,7 +1,3 @@
 .drag{
   -webkit-app-region: drag;//设置头部可拖拽
-  -webkit-user-select:none;//禁用文本选择 防止在拖动范围内选中了文字
-}
-.nodrag{
-  -webkit-app-region: no-drag;
 }

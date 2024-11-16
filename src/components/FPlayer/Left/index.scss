@@ -1,0 +1,80 @@
+// 在现有的 index.scss 中添加
+.record-container {
+  position: relative;
+  width: 32px;
+  height: 32px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: #000;
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    z-index: 2;
+  }
+}
+
+.record-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 3;
+}
+
+.rotate-animation {
+  animation: rotate 20s linear infinite;
+}
+
+.rotate-animation.paused {
+  animation-play-state: paused;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.scroll-container {
+  width: 70px;  // 设置固定宽度
+  overflow: hidden;
+
+  .scroll-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;  // 从右边开始
+    animation: scroll 10s linear infinite;  // 调整时间控制速度
+
+    &:hover {
+      animation-play-state: paused;  // hover 暂停
+    }
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

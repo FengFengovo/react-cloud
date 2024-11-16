@@ -39,8 +39,8 @@ const Daily = () => {
     const today = new Date().getDate(); // 获取当月的第几天（1-31）
 
     return (
-        <div className={'bg-[#13131aff] h-full flex flex-col overflow-y-scroll'}>
-            <div className={'mb-10px w-90% m-auto flex flex-col'}>
+        <div className={'bg-[#13131aff] h-full  flex-col overflow-y-scroll'}>
+            <div className={'w-90% m-auto my-20px flex flex-col'}>
                 <div className={'flex items-center'}>
                     <i className={'iconfont text-100px'}>{dateIconMap[today]}</i>
                     <div className={'flex flex-col justify-center ml-10px'}>
