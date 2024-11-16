@@ -5,7 +5,9 @@ import {useEffect} from "react";
 import {getLyricAPI} from "@/apis/song.ts";
 import '@lrc-player/core/dist/style.css' // 引入样式
 import { parseLrc, parseYrc } from '@lrc-player/parse'
+
 import Player from '@lrc-player/core'
+
 interface Props {
     isShow: boolean;
     onClose: () => void;
@@ -13,40 +15,38 @@ interface Props {
 }
 
 const FPopupPage: React.FC<Props> = ({ isShow, onClose,audioRef }) => {
+    const isPlaying = useSelector(state => state.playing.isPlaying);
     const player = new Player({
         // 当点击任意歌词行时，会触发这个事件
         click(time: number, index: number) {
-            console.log(time, index)
-            audioRef.current.value!.currentTime = time
+            audioRef.current.currentTime = time
             player.syncIndex(index)
         }
     })
     const songInfo = useSelector(state => state.playing.songInfo);
     useEffect(() => {
-        player.mount(document.querySelector('.geci') as HTMLElement, audioRef)
-        const  getLyric=async ()=>{
-            const res = await getLyricAPI(songInfo?.id)
-            console.log(res)
-            if (res?.yrc?.lyric){
-                //如果有逐字歌词 则使用逐字歌词
-                const lyrics = res.yrc.lyric.replace(/^\{.*}$/gm, '').trim();
-                console.log('这是逐字正则后的',lyrics);
-                const lrc=parseLrc(lyrics)
-                console.log('这是逐字处理之后的',lrc)
-                player.updateAudioLrc(lrc, 'lrc')
-            }else{
-                const lyrics = res.lrc.lyric.replace(/^\{.*}$/gm, '').trim();
-                console.log('这是逐行正则后的',lyrics);
-                const yrc=parseYrc(lyrics)
-                console.log('这是逐行处理之后的',yrc)
-                // @ts-ignore
-                player.updateAudioLrc(yrc, 'yrc')
-            }
 
+        if (songInfo){
+            player.mount(document.querySelector('.geci') as HTMLElement, audioRef.current)
+            const  getLyric=async ()=>{
+                const res = await getLyricAPI(songInfo?.id)
+                const lyricData = res?.yrc?.lyric || res.lrc?.lyric;  // 如果yrc.lyric存在则优先使用，否则使用lrc.lyric
+
+                if (lyricData) {
+                    const lyrics = lyricData.replace(/^\{.*}$/gm, '').trim();
+                    const parsedLrc = res?.yrc?.lyric ? parseLrc(lyrics) : parseYrc(lyrics);  // 根据来源选择解析方式
+                    const type = res?.yrc?.lyric ? 'lrc' : 'yrc';  // 判断是逐字歌词还是普通歌词
+
+                    // @ts-ignore
+                    player.updateAudioLrc(parsedLrc, type);
+                }
+
+            }
+            audioRef.current.play()
+            player.play()
+            getLyric()
         }
-        audioRef.current.play()
-        player.play()
-        getLyric()
+
 
     },[songInfo])
     return (

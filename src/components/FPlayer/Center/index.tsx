@@ -28,7 +28,7 @@ const PlayerCenter = ({audioRef}) => {
         getLikeStatus()
     }, [currentUrl,loveStatus]);
     const changePlayerStatus = () => {
-        setIsPlaying(!isPlaying)
+
         if (audioRef.current) {
             if (isPlaying) {
                 audioRef.current.pause();

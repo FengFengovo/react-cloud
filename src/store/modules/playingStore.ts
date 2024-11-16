@@ -1,20 +1,22 @@
 // store/playerSlice.ts
-import {createSlice,PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
 interface PlayerState {
     currentUrl: string;
     currentSong: any | null;  // 可以定义具体的类型
     isPlaying: boolean;
-    songInfo:object|null
+    songInfo: object | null
 }
+
 const playingStore = createSlice({
-    name:'playing',
-    initialState:<PlayerState>{
+    name: 'playing',
+    initialState: <PlayerState>{
         currentUrl: '',
         currentSong: null,
         isPlaying: false,
-        songInfo:null
+        songInfo: null
     },
-    reducers:{
+    reducers: {
         setCurrentUrl: (state, action: PayloadAction<string>) => {
             state.currentUrl = action.payload;
         },
@@ -29,7 +31,8 @@ const playingStore = createSlice({
         }
     }
 })
-export const {setCurrentUrl,setCurrentSong,setSongInfo,setIsPlaying} = playingStore.actions;
+
+export const {setCurrentUrl, setCurrentSong, setSongInfo, setIsPlaying} = playingStore.actions;
 
 
 const playingReducer = playingStore.reducer
