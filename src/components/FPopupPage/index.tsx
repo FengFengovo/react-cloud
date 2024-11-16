@@ -1,54 +1,114 @@
-// PopupPage.tsx
 import './index.scss';
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 import {getLyricAPI} from "@/apis/song.ts";
-import '@lrc-player/core/dist/style.css' // 引入样式
-import { parseLrc, parseYrc } from '@lrc-player/parse'
-
-import Player from '@lrc-player/core'
+import '@lrc-player/core/dist/style.css';
+import { parseLrc, parseYrc } from '@lrc-player/parse';
+import Player from '@lrc-player/core';
 
 interface Props {
     isShow: boolean;
     onClose: () => void;
-    audioRef:React.RefObject<HTMLAudioElement>;
+    audioRef: React.RefObject<HTMLAudioElement>;
 }
 
-const FPopupPage: React.FC<Props> = ({ isShow, onClose,audioRef }) => {
+const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
     const isPlaying = useSelector(state => state.playing.isPlaying);
-    const player = new Player({
-        // 当点击任意歌词行时，会触发这个事件
-        click(time: number, index: number) {
-            audioRef.current.currentTime = time
-            player.syncIndex(index)
-        }
-    })
     const songInfo = useSelector(state => state.playing.songInfo);
-    useEffect(() => {
+    const [currentPlayer, setCurrentPlayer] = useState<any>(null);
+    const playerRef = useRef<any>(null);
 
-        if (songInfo){
-            player.mount(document.querySelector('.geci') as HTMLElement, audioRef.current)
-            const  getLyric=async ()=>{
-                const res = await getLyricAPI(songInfo?.id)
-                const lyricData = res?.yrc?.lyric || res.lrc?.lyric;  // 如果yrc.lyric存在则优先使用，否则使用lrc.lyric
+    // 重置滚动条位置
+    useEffect(() => {
+        const element = document.querySelector('.y-player-container');
+        if (element) {
+            element.scrollTop = 0;
+        }
+    }, [songInfo?.id]);
+
+    // 处理歌词播放器
+    useEffect(() => {
+        console.log('歌曲ID变化，当前ID:', songInfo?.id);
+
+        if (!songInfo?.id || !audioRef.current) return;
+
+        // 清除旧的歌词容器内容
+        const container = document.querySelector('.geci');
+        if (container) {
+            container.innerHTML = '';
+        }
+
+        // 创建新的播放器实例
+        const player = new Player({
+            click(time: number, index: number) {
+                if (audioRef.current) {
+                    audioRef.current.currentTime = time;
+                    player.syncIndex(index);
+                }
+            }
+        });
+
+        // 挂载播放器
+        if (container) {
+            player.mount(container, audioRef.current);
+        }
+
+        // 获取并设置歌词
+        const getLyric = async () => {
+            try {
+                console.log('开始获取歌词');
+                const res = await getLyricAPI(songInfo.id);
+                const lyricData = res?.yrc?.lyric || res.lrc?.lyric;
 
                 if (lyricData) {
                     const lyrics = lyricData.replace(/^\{.*}$/gm, '').trim();
-                    const parsedLrc = res?.yrc?.lyric ? parseLrc(lyrics) : parseYrc(lyrics);  // 根据来源选择解析方式
-                    const type = res?.yrc?.lyric ? 'lrc' : 'yrc';  // 判断是逐字歌词还是普通歌词
+                    const parsedLrc = res?.yrc?.lyric ? parseLrc(lyrics) : parseYrc(lyrics);
+                    const type = res?.yrc?.lyric ? 'lrc' : 'yrc';
 
-                    // @ts-ignore
+                    // 确保在更新歌词前清空旧的内容
+                    if (container) {
+                        container.innerHTML = '';
+                    }
+
+                    // 更新歌词
                     player.updateAudioLrc(parsedLrc, type);
+                    console.log('歌词更新成功');
                 }
-
+            } catch (err) {
+                console.error('获取歌词失败:', err);
             }
-            audioRef.current.play()
-            player.play()
-            getLyric()
+        };
+
+        playerRef.current = player;
+        setCurrentPlayer(player);
+
+        // 获取歌词并开始播放
+        getLyric();
+        if (isPlaying) {
+            player.play();
         }
 
+        // 清理函数
+        return () => {
+            if (container) {
+                container.innerHTML = '';
+            }
+            playerRef.current = null;
+        };
 
-    },[songInfo])
+    }, [songInfo?.id]);
+
+    // 处理播放状态变化
+    useEffect(() => {
+        if (currentPlayer) {
+            if (isPlaying) {
+                currentPlayer.play();
+            } else {
+                currentPlayer.pause();
+            }
+        }
+    }, [isPlaying]);
+
     return (
         <div className={`popup-page ${isShow ? 'show' : ''}`}>
             {/* 背景层 */}
@@ -65,30 +125,36 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose,audioRef }) => {
 
             {/* 内容层 */}
             <div className="relative z-10 w-95% m-auto h-full mt-30px">
-                {/* 关闭按钮 */}
-                <div
-                    onClick={onClose}
-                    className="w-35px h-35px flex justify-center items-center border border-white/20  backdrop-blur-2xl transition-all duration-500 hover:bg-white/8 "
-                >
-                    <i className="iconfont text-35px text-white">&#xe626;</i>
-                </div>
-
                 {/* 歌曲信息 */}
-                <div className="mt-5 flex flex justify-around  h-full ">
-                    <img
-                        src={songInfo?.al?.picUrl}
-                        className="w-280px h-280px rounded-lg shadow-2xl"
-                        alt={songInfo?.name}
-                    />
-                    <div className="mt-6 text-center text-white">
-                        <h2 className="text-2xl font-bold">{songInfo?.name}</h2>
-                        <p className="mt-2 text-lg opacity-80">{songInfo?.ar[0].name}</p>
-                        <div className={'geci'}></div>
+                <div className="mt-5 flex items-center justify-around h-full">
+                    {/* 关闭按钮 */}
+                    <div
+                        onClick={onClose}
+                        className="w-35px h-35px flex justify-center items-center border border-white/20 backdrop-blur-2xl transition-all duration-500 hover:bg-white/8"
+                    >
+                        <i className="iconfont text-35px text-white">&#xe626;</i>
                     </div>
 
+                    {/* 封面信息 */}
+                    <div>
+                        <img
+                            src={songInfo?.al?.picUrl}
+                            className="w-280px h-280px rounded-lg shadow-2xl"
+                            alt={songInfo?.name}
+                        />
+                        <div>
+                            <span className="text-2xl font-bold">{songInfo?.name}</span>
+                            <span className="mt-2 ml-20px text-lg opacity-80">
+                                {songInfo?.ar?.[0]?.name}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* 歌词容器 */}
+                    <div className="mt-6 text-center text-white h-800px">
+                        <div className="geci overflow-auto h-full scroll-hidden"/>
+                    </div>
                 </div>
-
-
             </div>
         </div>
     );

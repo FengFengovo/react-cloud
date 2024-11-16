@@ -50,9 +50,14 @@
   }
 }
 .y-player-container{
-  height: 400px !important;
-  padding: 0 !important;
+  height: 100% !important;
+  overflow-y: scroll !important;
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
   .y-player-scroll{
-    padding: 0 !important;
+    overflow: auto !important;
+  }
+  .y-player-item{
+    width: 500px !important;
   }
 }
