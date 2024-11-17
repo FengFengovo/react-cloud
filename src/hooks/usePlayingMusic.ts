@@ -1,6 +1,6 @@
 // hooks/usePlayingMusic.ts
 import { useDispatch, useSelector } from 'react-redux';
-import {setCurrentUrl, setCurrentSong, setSongInfo} from "@/store/modules/playingStore.ts";
+import {setCurrentUrl, setSongInfo} from "@/store/modules/playingStore.ts";
 import {getMusicInfoAPI, getMusicUrlAPI} from "@/apis/song.ts";
 
 function usePlayingMusic() {
@@ -13,7 +13,6 @@ function usePlayingMusic() {
             const songInfo =await getMusicInfoAPI(id);
             dispatch(setCurrentUrl(res.data[0].url));
             dispatch(setSongInfo(songInfo.songs[0]));
-            console.log(res)
         } catch (error) {
             console.error('获取音乐URL失败:', error);
         }

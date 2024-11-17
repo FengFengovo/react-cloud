@@ -4,16 +4,19 @@ html,body,#root,#app{
     padding: 0;
 }
 
+
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
     font-family: 'iconfont';  /* Project id 4745381 */
     src:
-            url('//at.alicdn.com/t/c/font_4745381_2kmeg7qaf1a.woff2?t=1731733692178') format('woff2'),
-            url('//at.alicdn.com/t/c/font_4745381_2kmeg7qaf1a.woff?t=1731733692178') format('woff'),
-            url('//at.alicdn.com/t/c/font_4745381_2kmeg7qaf1a.ttf?t=1731733692178') format('truetype');
-
+            url('//at.alicdn.com/t/c/font_4745381_9znibchjyjp.woff2?t=1731846863142') format('woff2'),
+            url('//at.alicdn.com/t/c/font_4745381_9znibchjyjp.woff?t=1731846863142') format('woff'),
+            url('//at.alicdn.com/t/c/font_4745381_9znibchjyjp.ttf?t=1731846863142') format('truetype');
 }
-
+@font-face {
+    font-family: 'iconfont1';
+    src: url('./font/iconfont/iconfont.ttf') format('truetype');
+}
 @font-face {
     font-family: 'PingFang SC Heavy';
     src: url("./font/PingFang Heavy.otf");
@@ -26,6 +29,12 @@ html,body,#root,#app{
     -moz-osx-font-smoothing: grayscale;
 }
 *{
+    .iconfont1 {
+        font-family: 'iconfont1', serif !important;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
     font-family: 'PingFang SC Heavy', serif;
     -webkit-app-region: no-drag;
     -webkit-user-select:none;//禁用文本选择 防止在拖动范围内选中了文字

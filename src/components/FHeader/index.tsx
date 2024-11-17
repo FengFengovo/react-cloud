@@ -8,7 +8,7 @@ const FHeader=()=>{
     const {isLogin} =useSelector(state => state.user)
     return(
         <div className={'bg-red h-full flex  flex-col'}>
-            <div className={'h-10px bg-pink  drag'}></div>
+            <div className={'h-10px bg-pink'}></div>
             <div>
                 { !isLogin && <Button onClick={()=>setShowQR(true)}>登录</Button>}
                 <Modal

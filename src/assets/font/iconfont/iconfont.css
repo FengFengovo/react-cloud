@@ -1,0 +1,137 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1731849067873') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-rili:before {
+  content: "\e600";
+}
+
+.icon-rili1:before {
+  content: "\e601";
+}
+
+.icon-rili2:before {
+  content: "\e602";
+}
+
+.icon-rili3:before {
+  content: "\e603";
+}
+
+.icon-rili4:before {
+  content: "\e604";
+}
+
+.icon-rili5:before {
+  content: "\e605";
+}
+
+.icon-rili6:before {
+  content: "\e606";
+}
+
+.icon-rili7:before {
+  content: "\e607";
+}
+
+.icon-rili8:before {
+  content: "\e608";
+}
+
+.icon-rili9:before {
+  content: "\e609";
+}
+
+.icon-rili10:before {
+  content: "\e60a";
+}
+
+.icon-rili11:before {
+  content: "\e60b";
+}
+
+.icon-rili12:before {
+  content: "\e60c";
+}
+
+.icon-rili13:before {
+  content: "\e60d";
+}
+
+.icon-rili14:before {
+  content: "\e60e";
+}
+
+.icon-rili15:before {
+  content: "\e60f";
+}
+
+.icon-rili16:before {
+  content: "\e610";
+}
+
+.icon-rili17:before {
+  content: "\e611";
+}
+
+.icon-rili18:before {
+  content: "\e612";
+}
+
+.icon-rili19:before {
+  content: "\e613";
+}
+
+.icon-rili20:before {
+  content: "\e614";
+}
+
+.icon-rili21:before {
+  content: "\e615";
+}
+
+.icon-rili22:before {
+  content: "\e616";
+}
+
+.icon-rili23:before {
+  content: "\e617";
+}
+
+.icon-rili24:before {
+  content: "\e618";
+}
+
+.icon-rili25:before {
+  content: "\e619";
+}
+
+.icon-rili26:before {
+  content: "\e61a";
+}
+
+.icon-rili27:before {
+  content: "\e61b";
+}
+
+.icon-rili28:before {
+  content: "\e61c";
+}
+
+.icon-rili29:before {
+  content: "\e61d";
+}
+
+.icon-rili30:before {
+  content: "\e61e";
+}
+

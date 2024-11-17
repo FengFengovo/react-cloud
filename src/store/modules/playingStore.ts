@@ -1,38 +1,53 @@
 // store/playerSlice.ts
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
+import playList from "@/views/PlayList";
 interface PlayerState {
     currentUrl: string;
-    currentSong: any | null;  // 可以定义具体的类型
+    currentIndex: number;  // 可以定义具体的类型
     isPlaying: boolean;
-    songInfo: object | null
+    songInfo:null|object,
+    playList:[]
 }
 
 const playingStore = createSlice({
     name: 'playing',
     initialState: <PlayerState>{
         currentUrl: '',
-        currentSong: null,
+        currentIndex: 0,
         isPlaying: false,
-        songInfo: null
+        songInfo: null,
+        playList:[]
     },
     reducers: {
         setCurrentUrl: (state, action: PayloadAction<string>) => {
             state.currentUrl = action.payload;
         },
-        setCurrentSong: (state, action: PayloadAction<any>) => {
-            state.currentSong = action.payload;
+        setCurrentIndex: (state, action: PayloadAction<any>) => {
+            state.currentIndex = action.payload;
         },
         setIsPlaying: (state, action: PayloadAction<boolean>) => {
             state.isPlaying = action.payload;
         },
         setSongInfo: (state, action: PayloadAction<object>) => {
             state.songInfo = action.payload;
+        },
+        setPlayList: (state, action: PayloadAction<[]>) => {
+            state.playList = action.payload;
+        },
+        playNext : (state) => {
+            state.currentIndex = state.currentIndex +1;
+            state.currentUrl =state.playList[state.currentIndex +1]
         }
     }
 })
+export const {setCurrentUrl, setCurrentIndex,setPlayList,playNext, setSongInfo, setIsPlaying} = playingStore.actions;
+// const playNext =()=>{
+//    return  async (dispatch)=>{
+//
+//    }
+// }
 
-export const {setCurrentUrl, setCurrentSong, setSongInfo, setIsPlaying} = playingStore.actions;
+
 
 
 const playingReducer = playingStore.reducer

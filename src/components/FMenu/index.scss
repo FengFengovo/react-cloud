@@ -17,3 +17,6 @@
   margin: 0 auto;
   background-color: #ede5e5;
 }
+.drag{
+  -webkit-app-region: drag;//设置头部可拖拽
+}

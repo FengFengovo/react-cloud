@@ -3,6 +3,7 @@ import CloudLayout from "@/pages/Layout";
 import Recommend from "@/views/Recommend";
 import Daily from "@/views/Daily";
 import PlayList from "@/views/PlayList";
+import Recently from "@/views/Recently";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path:'playList',
                 element:<PlayList/>
+            },
+            {
+                path:'recently',
+                element:<Recently/>
             }
         ]
     }

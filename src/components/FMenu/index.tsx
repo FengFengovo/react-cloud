@@ -19,12 +19,16 @@ const FMenu = () => {
     const [selectedKeys, setSelectedKeys] = useState<string[]>(['/']);
     // 监听路由变化
     useEffect(() => {
+        const element = document.querySelector('.scrollReset');
+        if (element) {
+            element.scrollTop = 0;
+        }
         const searchParams = new URLSearchParams(location.search);
         const playlistId = searchParams.get('id');
         if (playlistId) {
             setSelectedKeys([playlistId]);
-        } else if (location.pathname === '/') {
-            setSelectedKeys(['/']);
+        }else {
+            setSelectedKeys([location.pathname]);
         }
     }, [location]);
     const itemClick = (value: MenuProps['onClick']) => {
@@ -32,7 +36,7 @@ const FMenu = () => {
         if (!isNaN(id)) {
             navigation(`/playList?id=${id}`);
         } else {
-            navigation('/');
+            navigation(value.key);
         }
     };
 
@@ -43,7 +47,12 @@ const FMenu = () => {
                 label: '推荐'
             },
             {
-                type: 'divider'
+              key:'/recently',
+              label: '最近播放'
+            },
+            {
+                type: 'divider',
+
             }
         ];
 
@@ -76,7 +85,7 @@ const FMenu = () => {
 
     return (
         <div>
-            <div className={'h-60px text-20px flex justify-center items-center'}>
+            <div className={'h-60px text-20px flex justify-center items-center drag'}>
                 网易云音乐
             </div>
             <Menu

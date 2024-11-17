@@ -9,13 +9,13 @@ function PlayList() {
     const {info} = useGetList(listID);
     return (
         info&&
-            <div className={'text-white flex flex-col h-full w-100% m-auto overflow-y-scroll'}>
+            <div className={'text-white flex flex-col h-full w-100% m-auto overflow-y-scroll '}>
                 <div className={'w-90% m-auto flex mt-20px my-20px'}>
                     <div className={'flex'}>
                         <img className={'h-200px w-200px rounded-xl'} src={info?.coverImgUrl}/>
                     </div>
                     <div className={'flex flex-col justify-around ml-15px'}>
-                        <div className={'text-17px font-bold'}>{info?.name}</div>
+                        <div className={'text-17px iconfont-bold'}>{info?.name}</div>
                         <div className={'text-14px text-gray'}>
                             {info?.description}
                         </div>

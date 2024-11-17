@@ -12,7 +12,9 @@ function createWindow() {
   Menu.setApplicationMenu(null);
   win = new BrowserWindow({
     width: 1050,
+    minWidth: 1050,
     height: 750,
+    minHeight: 750,
     resizable: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {

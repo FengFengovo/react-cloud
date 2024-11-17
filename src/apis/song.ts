@@ -62,3 +62,10 @@ export const getLyricAPI = (id: string):Promise<Lyric> => {
         url: `/lyric/new?id=${id}`
     })
 }
+//最近播放歌曲
+
+export const getRecentlyPlayedAPI = () => {
+    return request({
+        url: `/record/recent/song?limit=100`
+    })
+}

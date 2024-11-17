@@ -42,9 +42,9 @@ const Daily = () => {
         <div className={'bg-[#13131aff] h-full  flex-col overflow-y-scroll'}>
             <div className={'w-90% m-auto my-20px flex flex-col'}>
                 <div className={'flex items-center'}>
-                    <i className={'iconfont text-100px'}>{dateIconMap[today]}</i>
+                    <i className={'iconfont1 text-100px text-[#fa3d49]'}>{dateIconMap[today]}</i>
                     <div className={'flex flex-col justify-center ml-10px'}>
-                        <div className={'color-white text-30px font-bold'}>每日歌曲推荐</div>
+                        <div className={'color-white text-30px iconfont-bold'}>每日歌曲推荐</div>
                         <div className={'color-gray-3'}>根据您的口味推荐，每天6:00更新</div>
                     </div>
                 </div>

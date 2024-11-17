@@ -1,23 +1,28 @@
 import './index.scss';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
 import {getLyricAPI} from "@/apis/song.ts";
 import '@lrc-player/core/dist/style.css';
 import { parseLrc, parseYrc } from '@lrc-player/parse';
 import Player from '@lrc-player/core';
+import {setIsPlaying} from "@/store/modules/playingStore.ts";
 
 interface Props {
     isShow: boolean;
     onClose: () => void;
     audioRef: React.RefObject<HTMLAudioElement>;
+    // 新增：添加回调函数 prop
+    onPlayerReady?: (methods: { syncIndex: () => void }) => void;
 }
 
-const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
+const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady }) => {
+    // @ts-ignore
     const isPlaying = useSelector(state => state.playing.isPlaying);
-    const songInfo = useSelector(state => state.playing.songInfo);
+    // @ts-ignore
+    const songInfo= useSelector(state => state.playing.songInfo);
     const [currentPlayer, setCurrentPlayer] = useState<any>(null);
     const playerRef = useRef<any>(null);
-
+    const dispatch = useDispatch();
     // 重置滚动条位置
     useEffect(() => {
         const element = document.querySelector('.y-player-container');
@@ -28,8 +33,6 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
 
     // 处理歌词播放器
     useEffect(() => {
-        console.log('歌曲ID变化，当前ID:', songInfo?.id);
-
         if (!songInfo?.id || !audioRef.current) return;
 
         // 清除旧的歌词容器内容
@@ -43,6 +46,8 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
             click(time: number, index: number) {
                 if (audioRef.current) {
                     audioRef.current.currentTime = time;
+                    audioRef.current.play();
+                    dispatch(setIsPlaying(true))
                     player.syncIndex(index);
                 }
             }
@@ -53,10 +58,12 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
             player.mount(container, audioRef.current);
         }
 
+        // 将方法传递给父组件
+        onPlayerReady?.({ syncIndex: () => player.syncIndex() });
+
         // 获取并设置歌词
         const getLyric = async () => {
             try {
-                console.log('开始获取歌词');
                 const res = await getLyricAPI(songInfo.id);
                 const lyricData = res?.yrc?.lyric || res.lrc?.lyric;
 
@@ -71,8 +78,8 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
                     }
 
                     // 更新歌词
+                    // @ts-ignore
                     player.updateAudioLrc(parsedLrc, type);
-                    console.log('歌词更新成功');
                 }
             } catch (err) {
                 console.error('获取歌词失败:', err);
@@ -130,7 +137,7 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
                     {/* 关闭按钮 */}
                     <div
                         onClick={onClose}
-                        className="w-35px h-35px flex justify-center items-center border border-white/20 backdrop-blur-2xl transition-all duration-500 hover:bg-white/8"
+                        className="w-35px h-35px flex justify-center items-center border border-white/20  transition-all duration-500 hover:bg-white/8 hover:backdrop-blur-2xl"
                     >
                         <i className="iconfont text-35px text-white">&#xe626;</i>
                     </div>
@@ -139,19 +146,22 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef }) => {
                     <div>
                         <img
                             src={songInfo?.al?.picUrl}
-                            className="w-280px h-280px rounded-lg shadow-2xl"
+                            className="w-320px h-320px rounded-lg shadow-2xl"
                             alt={songInfo?.name}
                         />
-                        <div>
+                        <div className={'mt-4'}>
                             <span className="text-2xl font-bold">{songInfo?.name}</span>
                             <span className="mt-2 ml-20px text-lg opacity-80">
                                 {songInfo?.ar?.[0]?.name}
                             </span>
+                            <div className="text-1em opacity-80">
+                                专辑：{songInfo?.al?.name}
+                            </div>
                         </div>
                     </div>
 
                     {/* 歌词容器 */}
-                    <div className="mt-6 text-center text-white h-800px">
+                    <div className="text-center text-white h-400px">
                         <div className="geci overflow-auto h-full scroll-hidden"/>
                     </div>
                 </div>

@@ -1,44 +1,45 @@
-
 import './index.scss'
-import { Spin, Table } from "antd";
-import { debounce } from 'lodash';
+import {Spin, Table} from "antd";
+import {debounce} from 'lodash';
 import useGetList from "@/components/FSongList/useGetList.ts";
-import { getLikeListAPI, likeSongAPI } from "@/apis/song.ts";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import {getLikeListAPI, likeSongAPI} from "@/apis/song.ts";
+import {useCallback, useEffect, useMemo, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
+import {setCurrentIndex, setPlayList} from "@/store/modules/playingStore.ts";
 
 interface FSongListProps {
     listID?: string;
 }
 
-function FSongList({ listID }: FSongListProps) {
-    const { userInfo } = useSelector(state => state.user);
+function FSongList({listID}: FSongListProps) {
+    const {userInfo} = useSelector(state => state.user);
     const [likeList, setLikeList] = useState<number[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const { playList } = useGetList(listID);
-    const { playingUrl, setCurrentId } = usePlayingMusic();
-
+    const {playList, isLoading} = useGetList(listID);
+    const { setCurrentId} = usePlayingMusic();
+    const dispatch =useDispatch()
     // 获取喜欢列表
     const fetchLikeList = useCallback(async () => {
         if (!userInfo?.userId) return;
-
         try {
-            setIsLoading(true);
             const res = await getLikeListAPI(userInfo.userId);
             setLikeList(res.ids || []);
         } catch (error) {
             console.error('获取歌单失败:', error);
             setLikeList([]);
-        } finally {
-            setIsLoading(false);
         }
     }, [userInfo?.userId]);
 
     useEffect(() => {
         fetchLikeList();
     }, [fetchLikeList]);
-
+    useEffect(() => {
+        //如果切换了歌单 则将滚动条重置
+        const element = document.querySelector('.overflow-y-scroll');
+        if (element) {
+            element.scrollTop = 0;
+        }
+    }, []);
     // 创建防抖的API调用函数
     const debouncedLike = useMemo(() => debounce(async (id: number, like: boolean) => {
         try {
@@ -65,17 +66,32 @@ function FSongList({ listID }: FSongListProps) {
     };
 
     // 播放音乐
-    const playMusic = (id: string) => {
-        setCurrentId(id);
-    };
+    const playMusic = (record,index) => {
+        console.log(record)
+        setCurrentId(record.id);
+        //设置播放列表
+        // @ts-ignore
+        dispatch(setPlayList(playList))
+        //设置播放索引
+        dispatch(setCurrentIndex(index))
 
+
+    };
+    //设置播放列表
+    useEffect(() => {
+
+        if (playList?.length>0){
+            // @ts-ignore
+            dispatch(setPlayList(playList));
+        }
+    }, [playList,dispatch]);
     // 组件卸载时取消未执行的防抖函数
     useEffect(() => {
         return () => {
             debouncedLike.cancel();
         };
     }, [debouncedLike]);
-
+    //定义列数据
     const columns = [
         {
             title: '#',
@@ -93,7 +109,7 @@ function FSongList({ listID }: FSongListProps) {
             render: (_, record) => {
                 return (
                     <div className={'flex flex-col'}>
-                        <span className={'font-bold color-gray-3'}>{record.name}</span>
+                        <span className={'iconfont-bold color-gray-3'}>{record.name}</span>
                         <span className={'text-13px'}>{record.ar[0]?.name}</span>
                     </div>
                 )
@@ -106,6 +122,8 @@ function FSongList({ listID }: FSongListProps) {
         },
         {
             title: '操作',
+            width: 80,
+            align: 'center',
             key: 'actions',
             render: (_, record) => {
                 const isLiked = likeList.includes(record.id);
@@ -146,9 +164,9 @@ function FSongList({ listID }: FSongListProps) {
     }
 
     return (
-        <Spin spinning={isLoading} className={'flex flex-col'}>
-            <div className={'flex h-300px flex-col'}>
-                {playList.length > 0 && (
+        <Spin className={'h-full'} spinning={isLoading}>
+            <div className={'flex h-100% overflow-hidden flex-col'}>
+                {playList !== null &&
                     <Table
                         className={'custom-table w-90% m-auto'}
                         rowKey={record => record.id}
@@ -156,13 +174,16 @@ function FSongList({ listID }: FSongListProps) {
                         dataSource={playList}
                         columns={columns}
                         pagination={false}
-                        onRow={(record) => ({
-                            onDoubleClick: () => playMusic(record.id)
+                        onRow={(record, index) => ({
+                            onDoubleClick: () => playMusic(record,index)
+
                         })}
                     />
-                )}
+                }
+
             </div>
         </Spin>
+
     );
 }
 
