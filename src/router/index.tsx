@@ -4,6 +4,7 @@ import Recommend from "@/views/Recommend";
 import Daily from "@/views/Daily";
 import PlayList from "@/views/PlayList";
 import Recently from "@/views/Recently";
+import Search from "@/views/Search";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path:'recently',
                 element:<Recently/>
+            },
+            {
+                path:'search',
+                element:<Search/>
             }
         ]
     }

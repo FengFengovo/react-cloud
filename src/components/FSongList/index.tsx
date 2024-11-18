@@ -6,18 +6,16 @@ import {getLikeListAPI, likeSongAPI} from "@/apis/song.ts";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
-import {setCurrentIndex, setPlayList} from "@/store/modules/playingStore.ts";
+import {setPlayList} from "@/store/modules/playingStore.ts";
+import classNames from "classnames";
 
-interface FSongListProps {
-    listID?: string;
-}
-
-function FSongList({listID}: FSongListProps) {
+function FSongList() {
     const {userInfo} = useSelector(state => state.user);
     const [likeList, setLikeList] = useState<number[]>([]);
-    const {playList, isLoading} = useGetList(listID);
-    const { setCurrentId} = usePlayingMusic();
-    const dispatch =useDispatch()
+    const {playList, isLoading} = useGetList();
+    const {setCurrentId} = usePlayingMusic();
+    const songInfo = useSelector(state => state.playing.songInfo);
+    const dispatch = useDispatch()
     // 获取喜欢列表
     const fetchLikeList = useCallback(async () => {
         if (!userInfo?.userId) return;
@@ -29,7 +27,6 @@ function FSongList({listID}: FSongListProps) {
             setLikeList([]);
         }
     }, [userInfo?.userId]);
-
     useEffect(() => {
         fetchLikeList();
     }, [fetchLikeList]);
@@ -54,7 +51,6 @@ function FSongList({listID}: FSongListProps) {
             );
         }
     }, 300), []);
-
     // 处理喜欢/取消喜欢
     const handleLike = (id: number, like: boolean) => {
         setLikeList(prev =>
@@ -64,7 +60,6 @@ function FSongList({listID}: FSongListProps) {
         );
         debouncedLike(id, like);
     };
-
     // 播放音乐
     const playMusic = (index) => {
         //设置播放索引
@@ -76,11 +71,11 @@ function FSongList({listID}: FSongListProps) {
     //设置播放列表
     useEffect(() => {
 
-        if (playList?.length>0){
+        if (playList?.length > 0) {
             // @ts-ignore
             dispatch(setPlayList(playList));
         }
-    }, [playList,dispatch]);
+    }, [playList, dispatch]);
     // 组件卸载时取消未执行的防抖函数
     useEffect(() => {
         return () => {
@@ -105,8 +100,17 @@ function FSongList({listID}: FSongListProps) {
             render: (_, record) => {
                 return (
                     <div className={'flex flex-col'}>
-                        <span className={'iconfont-bold color-gray-3'}>{record.name}</span>
-                        <span className={'text-13px'}>{record.ar[0]?.name}</span>
+                        {/*
+                            使用classNames来动态判断是否需要高亮
+                            判断依据：当前列的音乐id 是否等于store中的currentID
+                        */}
+                        <span
+                            className={classNames('font-bold text-gray-3', {'text-red': record.id === songInfo?.id})}>{record.name}
+                        </span>
+
+                        <span
+                            className={classNames('font-bold  text-13px text-gray-3 ', {'text-red': record.id === songInfo?.id})}>{record.ar[0]?.name}
+                        </span>
                     </div>
                 )
             }
@@ -168,11 +172,14 @@ function FSongList({listID}: FSongListProps) {
                         rowKey={record => record.id}
                         bordered={false}
                         dataSource={playList}
+                        // 通过这个属性来添加class类名 播放时 row 的样式
+                        rowClassName={(record)=>{
+                            return classNames('',{ 'row-active':record.id === songInfo?.id})
+                        }}
                         columns={columns}
                         pagination={false}
                         onRow={(_, index) => ({
                             onDoubleClick: () => playMusic(index)
-
                         })}
                     />
                 }

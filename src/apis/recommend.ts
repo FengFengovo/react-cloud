@@ -11,14 +11,15 @@ export function getDailySongsAPI()  {
     })
 }
 interface PlayList{
-    playlist:{
-        tracks:[]
-    }
+    playlist:any
 }
 export function getListInfo (id):Promise<PlayList>  {
     return request({
         url:`/playlist/detail?id=${id}`
     })
+}
+interface PlayList{
+    songs:[]
 }
 export function getPlayListAPI (id):Promise<PlayList>  {
     return request({

@@ -1,17 +1,18 @@
 import {useEffect, useState} from "react";
-import { useSelector,useDispatch } from 'react-redux'
-import {playNext, playNextMusic, setCurrentIndex, setIsPlaying} from "@/store/modules/playingStore.ts";
+import {useDispatch, useSelector} from 'react-redux'
+import {setIsPlaying} from "@/store/modules/playingStore.ts";
 import {getLikeListAPI} from "@/apis/song.ts";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
+
 const PlayerCenter = ({audioRef}) => {
-    const isPlaying =useSelector(state => state.playing.isPlaying)
+    const isPlaying = useSelector(state => state.playing.isPlaying)
     const [loveStatus, setLoveStatus] = useState(true)
     const currentUrl = useSelector(state => state.playing.currentUrl);
     const songInfo = useSelector(state => state.playing.songInfo);
     const dispatch = useDispatch();
-    const {playNextMusic,playPrevMusic} =usePlayingMusic()
+    const {playNextMusic, playPrevMusic} = usePlayingMusic()
     // 监听 URL 变化，重置播放状态
-    const userInfo =useSelector(state => state.user.userInfo)
+    const userInfo = useSelector(state => state.user.userInfo)
     //判断是否喜欢音乐
 
     useEffect(() => {
@@ -19,34 +20,40 @@ const PlayerCenter = ({audioRef}) => {
             dispatch(setIsPlaying(true)) // URL 变化时，重置为播放状态
         }
         const getLikeStatus = async () => {
-            const res =await getLikeListAPI(userInfo.userId)
-            if (res?.ids?.includes(songInfo?.id)){
+            const res = await getLikeListAPI(userInfo.userId)
+            if (res?.ids?.includes(songInfo?.id)) {
                 setLoveStatus(true)
-            }else{
+            } else {
                 setLoveStatus(false)
             }
         }
         getLikeStatus()
-    }, [currentUrl,loveStatus]);
+    }, [currentUrl, loveStatus]);
     const changePlayerStatus = () => {
-
+        //确保获取到audio
         if (audioRef.current) {
+            //如果正在播放 则暂停
             if (isPlaying) {
                 audioRef.current.pause();
-            } else {
+                dispatch(setIsPlaying(!isPlaying))
+            }
+            //未播放 并且audio 有音乐url
+            else if (currentUrl !== '') {
                 audioRef.current.play().catch(err => {
                     console.error('播放失败:', err);
                 });
+                dispatch(setIsPlaying(!isPlaying))
             }
-            dispatch(setIsPlaying(!isPlaying))
+
         }
     }
-    const next =()=>{
-
+    const next = () => {
+        //播放下一首
         playNextMusic()
 
     }
-    const Prev= ()=>{
+    const Prev = () => {
+        //播放上一首
         playPrevMusic()
     }
     return (
@@ -54,7 +61,7 @@ const PlayerCenter = ({audioRef}) => {
             <i className="iconfont text-25px mx-40px">&#xe68c;</i>
             <i className="iconfont text-30px" onClick={Prev}>&#xe63c;</i>
             {/*播放状态三目运算*/}
-            { isPlaying?
+            {isPlaying ?
                 <i className="iconfont text-35px mx-40px" onClick={changePlayerStatus}>&#xe63b;</i>
                 :
                 <i className="iconfont text-35px mx-40px" onClick={changePlayerStatus}>&#xe63a;</i>

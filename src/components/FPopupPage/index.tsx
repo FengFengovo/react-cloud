@@ -119,7 +119,7 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady 
     return (
         <div className={`popup-page ${isShow ? 'show' : ''}`}>
             {/* 背景层 */}
-            <div className="fixed inset-0">
+            <div className="fixed inset-0 ">
                 <img
                     src={songInfo?.al?.picUrl}
                     className="w-full h-full object-cover blur-lg opacity-40 scale-110 relative top-100"
@@ -131,7 +131,7 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady 
             </div>
 
             {/* 内容层 */}
-            <div className="relative z-10 w-95% m-auto h-full mt-30px">
+            <div className="relative z-10 w-95% m-auto h-full mt-30px ">
                 {/* 歌曲信息 */}
                 <div className="mt-5 flex items-center justify-around h-full">
                     {/* 关闭按钮 */}
@@ -164,8 +164,15 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady 
                     <div className="text-center text-white h-400px">
                         <div className="geci overflow-auto h-full scroll-hidden"/>
                     </div>
+                    {/*<div className={'bg-green'} onClick={()=>{*/}
+                    {/*    dispatch(setIsPlaying(false))*/}
+                    {/*}}>*/}
+                    {/*    123*/}
+                    {/*</div>*/}
                 </div>
+
             </div>
+
         </div>
     );
 };

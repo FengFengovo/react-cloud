@@ -2,7 +2,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIndex, setCurrentUrl, setSongInfo } from "@/store/modules/playingStore.ts";
 import { getMusicInfoAPI, getMusicUrlAPI } from "@/apis/song.ts";
-import {message} from "antd";
 
 function usePlayingMusic() {
     const dispatch = useDispatch();
@@ -11,6 +10,7 @@ function usePlayingMusic() {
     const playList = useSelector(state => state.playing.playList);
 
     const setMusicData = async (index: number) => {
+
         try {
             const currentId = playList[index].id;
             const [urlRes, songInfoRes] = await Promise.all([
@@ -29,15 +29,17 @@ function usePlayingMusic() {
         if (currentIndex + 1 < playList.length) {
             await setMusicData(currentIndex + 1);
         }else{
-            dispatch(setCurrentIndex(-1))
+            //处理索引越界 如果当前音乐是最后一首 则定向到第一首
+            await setMusicData(0);
         }
     };
 
     const playPrevMusic = async () => {
         if (currentIndex - 1 >= 0) {
-            await setMusicData(currentIndex - 1);
+            await setMusicData(currentIndex -1);
         }else{
-            dispatch(setCurrentIndex(playList.length))
+            //处理索引越界 如果当前音乐是第一首 则定向到最后一首
+            await setMusicData(playList.length-1);
         }
     };
 

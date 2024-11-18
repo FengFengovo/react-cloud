@@ -7,8 +7,11 @@ export const likeSongAPI = (id: string, like?: boolean) => {
         url
     });
 };
+interface LikeList {
+    ids:[];
+}
 //获取喜欢音乐列表接口
-export const getLikeListAPI = (id: string) => {
+export const getLikeListAPI = (id: string):Promise<LikeList> => {
     return request({
         url: `/likelist?id=${id}`
     })
