@@ -57,17 +57,22 @@ const PlayerCenter = ({audioRef}) => {
         playPrevMusic()
     }
     return (
-        <div className={'flex items-center'}>
-            <i className="iconfont text-25px mx-40px">&#xe68c;</i>
-            <i className="iconfont text-30px" onClick={Prev}>&#xe63c;</i>
-            {/*播放状态三目运算*/}
-            {isPlaying ?
-                <i className="iconfont text-35px mx-40px" onClick={changePlayerStatus}>&#xe63b;</i>
-                :
-                <i className="iconfont text-35px mx-40px" onClick={changePlayerStatus}>&#xe63a;</i>
-            }
-            <i className="iconfont text-30px" onClick={next}>&#xe63e;</i>
-            <i className="iconfont text-25px mx-40px" onClick={() => setLoveStatus(!loveStatus)}>
+        <div className="flex items-center">
+            <i className="iconfont text-25px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer">&#xe68c;</i>
+            <i className="iconfont text-30px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
+               onClick={Prev}>&#xe63c;</i>
+            <i
+                className="iconfont text-35px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
+                onClick={changePlayerStatus}
+            >
+                {isPlaying ? '\ue63b' : '\ue63a'}
+            </i>
+            <i className="iconfont text-30px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
+               onClick={next}>&#xe63e;</i>
+            <i
+                className="iconfont text-25px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
+                onClick={() => setLoveStatus(!loveStatus)}
+            >
                 {loveStatus ? '\ue8c3' : '\ue8ab'}
             </i>
         </div>

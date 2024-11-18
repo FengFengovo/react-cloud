@@ -24,7 +24,6 @@ const useSearch = () => {
     //获取搜索建议
     const getKeySuggets = async (key) => {
         const res = await getKeySuggestAPI(key)
-        console.log(res.result)
         return res.result.songs.map(item => ({
             value: item.name,  // 用于搜索匹配
             label: item.name, // 显示文本
