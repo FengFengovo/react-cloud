@@ -9,14 +9,16 @@ import {useEffect, useRef, useState} from "react";
 import FPopupPage from "@/components/FPopupPage";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
+import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
 dayjs.extend(duration);
 
 const FPlayer = () => {
     // 创建对 audio 元素的引用
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
     const currentUrl = useSelector(state => state.playing.currentUrl);
     const [progress, setProgress] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
+    const {playNextMusic} = usePlayingMusic()
     // 存储子组件方法
     const [playerMethods, setPlayerMethods] = useState<{ syncIndex: () => void } | null>(null);
 
@@ -62,6 +64,23 @@ const FPlayer = () => {
             playerMethods?.syncIndex();
         }
     };
+    //监听音乐播放结束
+    useEffect(() => {
+        const audio = audioRef.current;
+        const handleEnded = () => {
+            playNextMusic();
+        };
+
+        if (audio) {
+            audio.addEventListener('ended', handleEnded);
+        }
+
+        return () => {
+            if (audio) {
+                audio.removeEventListener('ended', handleEnded);
+            }
+        };
+    }, [playNextMusic]);
 
     return (
         <div className={'h-full w-full flex flex-col overflow-hidden relative'}>

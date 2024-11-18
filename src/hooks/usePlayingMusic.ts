@@ -29,7 +29,7 @@ function usePlayingMusic() {
         if (currentIndex + 1 < playList.length) {
             await setMusicData(currentIndex + 1);
         }else{
-            message.info('当前已经是最后一首啦')
+            dispatch(setCurrentIndex(-1))
         }
     };
 
@@ -37,7 +37,7 @@ function usePlayingMusic() {
         if (currentIndex - 1 >= 0) {
             await setMusicData(currentIndex - 1);
         }else{
-            message.info('当前已经是第一首啦')
+            dispatch(setCurrentIndex(playList.length))
         }
     };
 

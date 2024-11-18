@@ -66,10 +66,8 @@ function FSongList({listID}: FSongListProps) {
     };
 
     // 播放音乐
-    const playMusic = (record,index) => {
+    const playMusic = (index) => {
         //设置播放索引
-        console.log(index)
-        // dispatch(setCurrentIndex(index))
         setCurrentId(index);
         //设置播放列表
         // @ts-ignore
@@ -172,8 +170,8 @@ function FSongList({listID}: FSongListProps) {
                         dataSource={playList}
                         columns={columns}
                         pagination={false}
-                        onRow={(record, index) => ({
-                            onDoubleClick: () => playMusic(record,index)
+                        onRow={(_, index) => ({
+                            onDoubleClick: () => playMusic(index)
 
                         })}
                     />
