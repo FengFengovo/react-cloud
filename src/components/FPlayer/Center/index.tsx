@@ -1,17 +1,15 @@
 import {useEffect, useState} from "react";
 import { useSelector,useDispatch } from 'react-redux'
-import {playNext, setIsPlaying} from "@/store/modules/playingStore.ts";
+import {playNext, playNextMusic, setCurrentIndex, setIsPlaying} from "@/store/modules/playingStore.ts";
 import {getLikeListAPI} from "@/apis/song.ts";
+import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
 const PlayerCenter = ({audioRef}) => {
     const isPlaying =useSelector(state => state.playing.isPlaying)
     const [loveStatus, setLoveStatus] = useState(true)
     const currentUrl = useSelector(state => state.playing.currentUrl);
-    const currentIndex = useSelector(state => state.playing.currentIndex);
-    const currentSong = useSelector(state => state.playing.currentSong);
     const songInfo = useSelector(state => state.playing.songInfo);
-
     const dispatch = useDispatch();
-    const playList = useSelector(state => state.playing.playList);
+    const {playNextMusic,playPrevMusic} =usePlayingMusic()
     // 监听 URL 变化，重置播放状态
     const userInfo =useSelector(state => state.user.userInfo)
     //判断是否喜欢音乐
@@ -44,14 +42,17 @@ const PlayerCenter = ({audioRef}) => {
         }
     }
     const next =()=>{
-        dispatch(playNext())
-        console.log('这是点击下一首之后的索引',currentIndex)
-        console.log('这是点击下一首之后的currentURL',currentUrl)
+
+        playNextMusic()
+
+    }
+    const Prev= ()=>{
+        playPrevMusic()
     }
     return (
         <div className={'flex items-center'}>
             <i className="iconfont text-25px mx-40px">&#xe68c;</i>
-            <i className="iconfont text-30px" onClick={next}>&#xe63c;</i>
+            <i className="iconfont text-30px" onClick={Prev}>&#xe63c;</i>
             {/*播放状态三目运算*/}
             { isPlaying?
                 <i className="iconfont text-35px mx-40px" onClick={changePlayerStatus}>&#xe63b;</i>

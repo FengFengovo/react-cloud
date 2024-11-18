@@ -1,6 +1,7 @@
 // store/playerSlice.ts
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import playList from "@/views/PlayList";
+import {getMusicUrlAPI} from "@/apis/song.ts";
 interface PlayerState {
     currentUrl: string;
     currentIndex: number;  // 可以定义具体的类型
@@ -36,16 +37,10 @@ const playingStore = createSlice({
         },
         playNext : (state) => {
             state.currentIndex = state.currentIndex +1;
-            state.currentUrl =state.playList[state.currentIndex +1]
         }
     }
 })
 export const {setCurrentUrl, setCurrentIndex,setPlayList,playNext, setSongInfo, setIsPlaying} = playingStore.actions;
-// const playNext =()=>{
-//    return  async (dispatch)=>{
-//
-//    }
-// }
 
 
 

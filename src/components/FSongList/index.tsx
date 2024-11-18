@@ -67,15 +67,13 @@ function FSongList({listID}: FSongListProps) {
 
     // 播放音乐
     const playMusic = (record,index) => {
-        console.log(record)
-        setCurrentId(record.id);
+        //设置播放索引
+        console.log(index)
+        // dispatch(setCurrentIndex(index))
+        setCurrentId(index);
         //设置播放列表
         // @ts-ignore
         dispatch(setPlayList(playList))
-        //设置播放索引
-        dispatch(setCurrentIndex(index))
-
-
     };
     //设置播放列表
     useEffect(() => {
