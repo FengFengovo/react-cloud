@@ -71,3 +71,11 @@ html,body,#root,#app{
 .scrollbar-hide::-webkit-scrollbar {
     display: none;             /* Chrome, Safari and Opera */
 }
+* {
+    outline: none !important;
+    -webkit-focus-ring-color: transparent;
+}
+
+:focus {
+    outline: none !important;
+}
