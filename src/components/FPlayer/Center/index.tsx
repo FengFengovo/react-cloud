@@ -3,15 +3,20 @@ import {useDispatch, useSelector} from 'react-redux'
 import {setIsPlaying} from "@/store/modules/playingStore.ts";
 import {getLikeListAPI} from "@/apis/song.ts";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
+import classNames from "classnames";
 
 const PlayerCenter = ({audioRef}) => {
+
     const isPlaying = useSelector(state => state.playing.isPlaying)
     const [loveStatus, setLoveStatus] = useState(true)
+
     const currentUrl = useSelector(state => state.playing.currentUrl);
+
     const songInfo = useSelector(state => state.playing.songInfo);
     const dispatch = useDispatch();
     const {playNextMusic, playPrevMusic} = usePlayingMusic()
     // 监听 URL 变化，重置播放状态
+
     const userInfo = useSelector(state => state.user.userInfo)
     //判断是否喜欢音乐
 
@@ -70,7 +75,8 @@ const PlayerCenter = ({audioRef}) => {
             <i className="iconfont text-30px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
                onClick={next}>&#xe63e;</i>
             <i
-                className="iconfont text-25px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
+                className={classNames('iconfont text-25px mx-40px text-gray-1 hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer',{'text-red-5':loveStatus})}
+                // className="iconfont text-25px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
                 onClick={() => setLoveStatus(!loveStatus)}
             >
                 {loveStatus ? '\ue8c3' : '\ue8ab'}

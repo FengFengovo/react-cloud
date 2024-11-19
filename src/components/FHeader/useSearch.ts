@@ -13,7 +13,6 @@ const useSearch = () => {
     //获取热搜关键词
     const getHotKey = async () => {
         const res = await getHotKeyAPI();
-        console.log(res.data)
         //转换数据格式为 自动补全输入框所需的格式
         const options = res.data.map(item => ({
             value: item.searchWord,  // 用于搜索匹配

@@ -91,7 +91,6 @@ function useGetList() {
             }
         };
         if (location.pathname === '/search' &&key) {
-            console.log('执行search');
             getMusicByKey(key);
         }
         if (location.pathname === '/recently') {
@@ -101,7 +100,6 @@ function useGetList() {
             getListByID()
         }
         if (location.pathname === '/dailySongs') {
-            console.log('执行每日')
             getDailyList()
         }
     }, [id,key])

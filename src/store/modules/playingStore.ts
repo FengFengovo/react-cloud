@@ -4,7 +4,11 @@ interface PlayerState {
     currentUrl: string;
     currentIndex: number;  // 可以定义具体的类型
     isPlaying: boolean;
-    songInfo:null|object,
+    songInfo:{
+      ar:[
+          name:string
+      ]
+    },
     playList:[]
 }
 
@@ -28,6 +32,7 @@ const playingStore = createSlice({
             state.isPlaying = action.payload;
         },
         setSongInfo: (state, action: PayloadAction<object>) => {
+
             state.songInfo = action.payload;
         },
         setPlayList: (state, action: PayloadAction<[]>) => {

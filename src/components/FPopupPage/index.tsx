@@ -16,9 +16,9 @@ interface Props {
 }
 
 const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady }) => {
-    // @ts-ignore
+
     const isPlaying = useSelector(state => state.playing.isPlaying);
-    // @ts-ignore
+
     const songInfo= useSelector(state => state.playing.songInfo);
     const [currentPlayer, setCurrentPlayer] = useState<any>(null);
     const playerRef = useRef<any>(null);
@@ -78,7 +78,6 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady 
                     }
 
                     // 更新歌词
-                    // @ts-ignore
                     player.updateAudioLrc(parsedLrc, type);
                 }
             } catch (err) {
@@ -164,11 +163,7 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady 
                     <div className="text-center text-white h-400px">
                         <div className="geci overflow-auto h-full scroll-hidden"/>
                     </div>
-                    {/*<div className={'bg-green'} onClick={()=>{*/}
-                    {/*    dispatch(setIsPlaying(false))*/}
-                    {/*}}>*/}
-                    {/*    123*/}
-                    {/*</div>*/}
+
                 </div>
 
             </div>

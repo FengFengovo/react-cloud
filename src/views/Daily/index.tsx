@@ -1,6 +1,7 @@
 import FSongList from "@/components/FSongList";
 import './index.scss'
 import {Button} from "antd";
+import useGetList from "@/components/FSongList/useGetList.ts";
 const dateIconMap: Record<number, string> = {
     1: '\ue600',   // 日历1
     2: '\ue601',   // 日历2
@@ -35,6 +36,7 @@ const dateIconMap: Record<number, string> = {
     31: '\ue61d'   // 日历31
 };
 const Daily = () => {
+    const {isLoading,playList} = useGetList();
     // 获取当前日期
     const today = new Date().getDate(); // 获取当月的第几天（1-31）
 
@@ -53,7 +55,7 @@ const Daily = () => {
                     <Button size={"large"} className={'love-all-btn' }>喜欢全部</Button>
                 </div>
             </div>
-            <FSongList/>
+            <FSongList playList={playList} isLoading={isLoading}/>
         </div>
     )
 }

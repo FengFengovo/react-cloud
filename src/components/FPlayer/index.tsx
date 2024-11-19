@@ -19,6 +19,7 @@ const FPlayer = () => {
     const [progress, setProgress] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const {playNextMusic} = usePlayingMusic()
+    const songInfo =useSelector(state => state.playing.songInfo);
     const isPlaying =useSelector(state => state.playing.isPlaying)
     // 存储子组件方法
     const [playerMethods, setPlayerMethods] = useState<{ syncIndex: () => void } | null>(null);
@@ -100,7 +101,7 @@ const FPlayer = () => {
             <div
                 onClick={(e) => {
                     // 如果点击的是背景（当前div），而不是其子元素
-                    if (e.target === e.currentTarget &&isPlaying) {
+                    if (e.target === e.currentTarget && songInfo) {
                         setShowPopup(true);
                     }
                 }}

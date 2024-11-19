@@ -1,10 +1,12 @@
 import request from "@/utils/index";
 
+//获取每日推荐歌单
 export function getResourceAPI()  {
     return request({
         url:'/recommend/resource',
     })
 }
+//获取每日推荐歌曲
 export function getDailySongsAPI()  {
     return request({
         url:'/recommend/songs',

@@ -20,7 +20,7 @@ function RecommendList({recommend}) {
                     </div>
                     <div className={'mt-2 text-sm truncate color-white'}>每日推荐</div>
                 </div>
-                {recommend.map(item => (
+                {recommend?.map(item => (
                     <div onClick={()=>navigate(`/playList?id=${item.id}`)} key={item.id}
                          className={'w-[calc(50%-8px)] sm:w-[calc(33.333%-12px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-16px)]'}>
                         <div>

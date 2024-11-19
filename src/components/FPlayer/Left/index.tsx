@@ -15,9 +15,12 @@ interface SongInfo {
 }
 
 const PlayerLeft = () => {
+
     const isPlaying = useSelector(state => state.playing.isPlaying);
+
     const songInfo: SongInfo = useSelector(state => state.playing.songInfo)
     //弹出层状态
+
 
     return (
         <div onClick={e => e.stopPropagation()} className={'flex items-center ml-20px w-150px text-nowrap z-999'}>
@@ -38,6 +41,7 @@ const PlayerLeft = () => {
                 </div>
                 <div>
                     <span className="scroll-text text-sm text-gray-400">
+
                         {songInfo ? songInfo.ar[0].name : '未播放'}
                      </span>
                 </div>

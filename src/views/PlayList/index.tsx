@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 function PlayList() {
     const [searchParams] = useSearchParams();
     const listID = searchParams.get('id');
-    const {info} = useGetList(listID);
+    const {info,playList,isLoading} = useGetList();
     return (
         info&&
             <div className={'text-white flex flex-col h-full w-100% m-auto overflow-y-scroll '}>
@@ -27,7 +27,8 @@ function PlayList() {
                     </div>
                 </div>
                 <div className={'h-full'}>
-                    <FSongList listID={listID}/>
+
+                    <FSongList isLoading={isLoading} playList={playList} listID={listID}/>
                 </div>
 
             </div>

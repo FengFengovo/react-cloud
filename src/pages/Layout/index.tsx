@@ -9,7 +9,7 @@ import {loginStatusAPI} from "@/apis/user.ts";
 import {changeLoginStatus, fetchUserInfo} from "@/store/modules/userStore.ts";
 import {useDispatch} from "react-redux";
 
-const {Header, Footer, Sider, Content} = Layout;
+const {Header, Sider, Content} = Layout;
 
 const CloudLayout = () => {
     const dispatch = useDispatch();
@@ -22,14 +22,14 @@ const CloudLayout = () => {
                 dispatch(changeLoginStatus(false))
             }
         }
-        // @ts-ignore
+
         dispatch(fetchUserInfo())
         getStatus()
     }, [])
     return (
         <Layout className={'h-100vh flex  flex'}>
             <Layout className={'flex h-full'}>
-                <Sider className={'bg-side'} width={'205px'}>
+                <Sider className={'bg-[#1d1d1f] border-r border-white/5'} width={'205px'}>
                     <FMenu/>
                 </Sider>
                 <Layout>

@@ -5,7 +5,7 @@ import axios from "axios";
 
 //第一步，利用aixos对象的create方法 去创建axios示例（其他的配置:基础路径 ，超时的时间）
 let request= axios.create({
-    baseURL:'http://localhost:3000',
+    baseURL:import.meta.env.VITE_BASE_URL,
     withCredentials:true,
     timeout:3000
 });

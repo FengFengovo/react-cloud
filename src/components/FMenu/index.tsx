@@ -13,6 +13,7 @@ interface PlayListItem {
 
 const FMenu = () => {
     const navigation = useNavigate();
+
     const {userInfo} = useSelector(state => state.user);
     const location = useLocation();
     const [uPlayList, setUPlayList] = useState<PlayListItem[]>([]);
@@ -32,10 +33,12 @@ const FMenu = () => {
         }
     }, [location]);
     const itemClick = (value: MenuProps['onClick']) => {
+
         const id = Number(value.key);
         if (!isNaN(id)) {
             navigation(`/playList?id=${id}`);
         } else {
+
             navigation(value.key);
         }
     };
@@ -83,14 +86,15 @@ const FMenu = () => {
         }
     }, [userInfo?.userId]);
 
+
     return (
         <div>
-            <div className={'h-60px text-20px flex justify-center items-center drag'}>
+            <div className={'h-60px text-20px text-white flex justify-center items-center drag'}>
                 网易云音乐
             </div>
             <Menu
                 selectedKeys={selectedKeys}
-                className={'h-full'}
+                className={'h-full bg-[#1d1d1f]/95 backdrop-blur-md border-r border-white/5'}
                 onClick={itemClick}
                 mode="vertical"
                 items={getAllMenuItems()}

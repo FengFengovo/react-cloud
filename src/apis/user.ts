@@ -2,6 +2,7 @@ import request from "@/utils";
 
 //用户登录状态
 interface LoginInfo {
+    profile: object;
     data:{
         profile:object
     }

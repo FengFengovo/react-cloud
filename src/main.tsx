@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </RouterProvider>
     </Provider>
 )
-
+console.log(import.meta.env)
 // Use contextBridge
 window.ipcRenderer.on('main-process-message', (_event, message) => {
   console.log(message)

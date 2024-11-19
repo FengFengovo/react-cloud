@@ -5,8 +5,11 @@ import { getMusicInfoAPI, getMusicUrlAPI } from "@/apis/song.ts";
 
 function usePlayingMusic() {
     const dispatch = useDispatch();
+
     const currentIndex = useSelector(state => state.playing.currentIndex);
+
     const currentUrl = useSelector(state => state.playing.currentUrl);
+
     const playList = useSelector(state => state.playing.playList);
 
     const setMusicData = async (index: number) => {

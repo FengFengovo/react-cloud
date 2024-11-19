@@ -1,5 +1,7 @@
 import FSongList from "@/components/FSongList";
+import useGetList from "@/components/FSongList/useGetList.ts";
 const  Recently  =()=>{
+    const {playList,isLoading} = useGetList();
     return(
         <div className={'m-auto h-full overflow-y-scroll'}>
             <div className={'w-90% m-auto my-30px'}>
@@ -11,9 +13,7 @@ const  Recently  =()=>{
                 </div>
 
             </div>
-
-
-            <FSongList/>
+            <FSongList playList={playList} isLoading={isLoading}/>
         </div>
     )
 }

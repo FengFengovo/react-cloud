@@ -7,9 +7,16 @@
   margin: 0 auto;
   background-color: #eceff2;
   border-right:none !important;
+  .ant-menu-item{
+    color:gray !important;
+    &:hover{
+      background-color: white !important;
+      color: #1d1a1a !important;
+    }
+  }
   .ant-menu-item-selected{
     background-color: #fa3d49;
-    color: #fff;
+    color: #fff !important;
   }
 }
 .ant-menu-item-divider{

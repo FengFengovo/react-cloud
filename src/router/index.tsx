@@ -1,10 +1,20 @@
 import {createBrowserRouter} from "react-router-dom";
+
 import CloudLayout from "@/pages/Layout";
-import Recommend from "@/views/Recommend";
-import Daily from "@/views/Daily";
-import PlayList from "@/views/PlayList";
-import Recently from "@/views/Recently";
-import Search from "@/views/Search";
+import {lazy, Suspense} from "react";
+// import Recommend from "@/views/Recommend";
+// import Daily from "@/views/Daily";
+// import PlayList from "@/views/PlayList";
+// import Recently from "@/views/Recently";
+// import Search from "@/views/Search";
+// import {lazy} from "react";
+//配置路由懒加载
+const Recommend =lazy(()=>import('@/views/Recommend'));
+const Daily =lazy(()=>import('@/views/Daily'));
+const PlayList =lazy(()=>import('@/views/PlayList'));
+const Recently =lazy(()=>import('@/views/Recently'));
+const Search =lazy(()=>import('@/views/Search'));
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -12,23 +22,23 @@ const router = createBrowserRouter([
         children:[
             {
                 index:true,
-                element:<Recommend/>
+                element:<Suspense fallback={''}><Recommend/></Suspense>
             },
             {
                 path:'dailySongs',
-                element:<Daily/>
+                element:<Suspense fallback={''}><Daily/></Suspense>
             },
             {
                 path:'playList',
-                element:<PlayList/>
+                element:<Suspense fallback={''}><PlayList/></Suspense>
             },
             {
                 path:'recently',
-                element:<Recently/>
+                element:<Suspense fallback={''}><Recently/></Suspense>
             },
             {
                 path:'search',
-                element:<Search/>
+                element:<Suspense fallback={''}><Search/></Suspense>
             }
         ]
     }

@@ -1,7 +1,6 @@
 import './index.scss'
 import {Spin, Table} from "antd";
 import {debounce} from 'lodash';
-import useGetList from "@/components/FSongList/useGetList.ts";
 import {getLikeListAPI, likeSongAPI} from "@/apis/song.ts";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,11 +8,12 @@ import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
 import {setPlayList} from "@/store/modules/playingStore.ts";
 import classNames from "classnames";
 
-function FSongList() {
+function FSongList({playList,isLoading}) {
+
     const {userInfo} = useSelector(state => state.user);
     const [likeList, setLikeList] = useState<number[]>([]);
-    const {playList, isLoading} = useGetList();
     const {setCurrentId} = usePlayingMusic();
+
     const songInfo = useSelector(state => state.playing.songInfo);
     const dispatch = useDispatch()
     // 获取喜欢列表
@@ -26,7 +26,7 @@ function FSongList() {
             console.error('获取歌单失败:', error);
             setLikeList([]);
         }
-    }, [userInfo?.userId]);
+    }, []);
     useEffect(() => {
         fetchLikeList();
     }, [fetchLikeList]);
@@ -65,14 +65,12 @@ function FSongList() {
         //设置播放索引
         setCurrentId(index);
         //设置播放列表
-        // @ts-ignore
         dispatch(setPlayList(playList))
     };
     //设置播放列表
     useEffect(() => {
 
         if (playList?.length > 0) {
-            // @ts-ignore
             dispatch(setPlayList(playList));
         }
     }, [playList, dispatch]);
@@ -105,11 +103,11 @@ function FSongList() {
                             判断依据：当前列的音乐id 是否等于store中的currentID
                         */}
                         <span
-                            className={classNames('font-bold text-gray-3', {'text-red': record.id === songInfo?.id})}>{record.name}
+                            className={classNames('font-bold text-gray-3', {'text-#ff3d89 drop-shadow-[0_0_10px_#ff3d89]': record.id === songInfo?.id})}>{record.name}
                         </span>
 
                         <span
-                            className={classNames('font-bold  text-13px text-gray-3 ', {'text-red': record.id === songInfo?.id})}>{record.ar[0]?.name}
+                            className={classNames('font-bold  text-13px text-gray-3 ', {'text-#ff3d89 drop-shadow-[0_0_10px_#ff3d89]': record.id === songInfo?.id})}>{record.ar[0]?.name}
                         </span>
                     </div>
                 )
@@ -133,7 +131,8 @@ function FSongList() {
                             e.stopPropagation();  // 阻止事件冒泡
                             handleLike(record.id, !isLiked);
                         }}
-                        className={'iconfont cursor-pointer'}
+                        // className={'iconfont cursor-pointer'}
+                        className={classNames('iconfont cursor-pointer text-gray-3',{'text-red-5':isLiked})}
                     >
                         {isLiked ? '\ue8c3' : '\ue8ab'}
                     </i>
