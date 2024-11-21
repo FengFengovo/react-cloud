@@ -20,7 +20,6 @@ export const {changeLoginStatus,setUserInfo} = userStore.actions;
 const fetchUserInfo= ()=>{
     return async (dispatch:any)=>{
         const res = await loginStatusAPI()
-        console.log(res.data.profile)
         if (res.data.profile!==null)
         {
             dispatch(changeLoginStatus(true))

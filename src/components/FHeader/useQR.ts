@@ -13,8 +13,6 @@ const UseQR = () => {
     const dispatch = useDispatch();
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
     useEffect(() => {
-        console.log(userInfo)
-        console.log(showQR)
         if (userInfo) {
             message.success(`${userInfo?.nickname},欢迎回来!`)
         }
