@@ -1,11 +1,8 @@
 import FSongList from "@/components/FSongList";
-import {useSearchParams} from "react-router-dom";
 import useGetList from "@/components/FSongList/useGetList.ts";
 import dayjs from "dayjs";
 
 function PlayList() {
-    const [searchParams] = useSearchParams();
-    const listID = searchParams.get('id');
     const {info,playList,isLoading} = useGetList();
     return (
         info&&
@@ -28,7 +25,7 @@ function PlayList() {
                 </div>
                 <div className={'h-full'}>
 
-                    <FSongList isLoading={isLoading} playList={playList} listID={listID}/>
+                    <FSongList isLoading={isLoading} playList={playList}/>
                 </div>
 
             </div>

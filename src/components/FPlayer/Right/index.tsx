@@ -1,11 +1,12 @@
-import { MutedOutlined, SoundOutlined } from "@ant-design/icons";
-import { Drawer, Slider } from "antd";
-import { useEffect, useState, useCallback, useMemo, memo } from "react";
-import { useSelector } from "react-redux";
+import {MutedOutlined, SoundOutlined} from "@ant-design/icons";
+import {Drawer, Slider} from "antd";
+import {memo, useCallback, useEffect, useMemo, useState} from "react";
+import {useSelector} from "react-redux";
 import './index.scss';
+import type {RootState} from "@/store";
 
 // 抽离播放列表项组件并使用 memo
-const PlayListItem = memo(({ item, isActive }) => (
+const PlayListItem = memo(({item, isActive}) => (
     <div className={'bg-black rounded-lg w-97% m-auto my-3px'}>
         <div className="flex flex-col rounded-lg hover:bg-white/10 transition-all duration-200 p4 cursor-pointer">
       <span className={`
@@ -22,14 +23,12 @@ const PlayListItem = memo(({ item, isActive }) => (
     </div>
 ));
 
-const PlayerRight = memo(({ audioRef }) => {
+const PlayerRight = memo(({audioRef}) => {
     const [volume, setVolume] = useState(100);
     const [openDrawer, setOpenDrawer] = useState(false);
 
-    // 使用 useSelector 的优化写法
-    const playList = useSelector(state => state.playing.playList,
-        (prev, next) => prev.length === next.length);
-    const currentSongId = useSelector(state => state.playing.songInfo?.id);
+    const playList = useSelector((state: RootState) => state.playing.playList);
+    const currentSongId = useSelector((state: RootState) => state.playing.songInfo?.id);
 
     // 缓存事件处理函数
     const handleVolumeChange = useCallback((value) => {
@@ -81,7 +80,7 @@ const PlayerRight = memo(({ audioRef }) => {
     return (
         <div className={'flex w-120px items-center mr-50px'}>
             <Drawer
-                className={'w-400px! h-600px! pos-fixed bottom-82.27px right-1px p-0! m-0!'}
+                className={'w-400px! h-600px! pos-fixed bottom-65px right-1px p-0! m-0!'}
                 title="播放列表"
                 onClose={toggleDrawer}
                 open={openDrawer}

@@ -16,14 +16,13 @@ const CloudLayout = () => {
     useEffect(() => {
         const getStatus = async () => {
             const res = await loginStatusAPI();
-            if (res.profile !== null) {
+            if (res.data.profile !== null) {
                 dispatch(changeLoginStatus(true))
             } else {
                 dispatch(changeLoginStatus(false))
             }
         }
-
-        dispatch(fetchUserInfo())
+        fetchUserInfo()
         getStatus()
     }, [])
     return (
@@ -41,7 +40,7 @@ const CloudLayout = () => {
                     </Content>
                 </Layout>
             </Layout>
-            <div className={'bg-player player h-90px  '}>
+            <div className={'bg-player player h-65px  '}>
                 <FPlayer/>
             </div>
         </Layout>

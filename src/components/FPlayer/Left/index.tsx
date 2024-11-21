@@ -2,23 +2,15 @@ import {useSelector} from "react-redux";
 import './index.scss'
 //未播放情况下默认封面
 import defaultImg from '@/assets/default.jpg'
+import type {RootState} from "@/store";
 
 
-interface SongInfo {
-    name: string;
-    al: {
-        picUrl: string;
-    },
-    ar: [
-        name: string
-    ]
-}
 
 const PlayerLeft = () => {
 
-    const isPlaying = useSelector(state => state.playing.isPlaying);
+    const isPlaying = useSelector((state:RootState) => state.playing.isPlaying);
 
-    const songInfo: SongInfo = useSelector(state => state.playing.songInfo)
+    const songInfo = useSelector((state:RootState) => state.playing.songInfo)
     //弹出层状态
 
 

@@ -1,15 +1,21 @@
 // store/playerSlice.ts
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
 interface PlayerState {
     currentUrl: string;
-    currentIndex: number;  // 可以定义具体的类型
+    currentIndex: number;
     isPlaying: boolean;
-    songInfo:{
-      ar:[
-          name:string
-      ]
-    },
-    playList:[]
+    songInfo: {
+        ar: Array<{
+            name: string;
+        }>;
+        name: string;
+        id: string;
+        al: {
+            picUrl: string;
+        };
+    } | null;
+    playList: any[];
 }
 
 const playingStore = createSlice({
@@ -19,7 +25,7 @@ const playingStore = createSlice({
         currentIndex: 0,
         isPlaying: false,
         songInfo: null,
-        playList:[]
+        playList: []
     },
     reducers: {
         setCurrentUrl: (state, action: PayloadAction<string>) => {
@@ -40,7 +46,7 @@ const playingStore = createSlice({
         },
     }
 })
-export const {setCurrentUrl, setCurrentIndex,setPlayList, setSongInfo, setIsPlaying} = playingStore.actions;
+export const {setCurrentUrl, setCurrentIndex, setPlayList, setSongInfo, setIsPlaying} = playingStore.actions;
 
 const playingReducer = playingStore.reducer
 export default playingReducer;

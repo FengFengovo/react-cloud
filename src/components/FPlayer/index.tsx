@@ -10,17 +10,18 @@ import FPopupPage from "@/components/FPopupPage";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
+import type {RootState} from "@/store";
 
 dayjs.extend(duration);
 const FPlayer = () => {
     // 创建对 audio 元素的引用
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const currentUrl = useSelector(state => state.playing.currentUrl);
+    const currentUrl = useSelector((state:RootState) => state.playing.currentUrl);
     const [progress, setProgress] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const {playNextMusic} = usePlayingMusic()
-    const songInfo =useSelector(state => state.playing.songInfo);
-    const isPlaying =useSelector(state => state.playing.isPlaying)
+    const songInfo =useSelector((state:RootState) => state.playing.songInfo);
+    // const isPlaying =useSelector((state:RootState) => state.playing.isPlaying)
     // 存储子组件方法
     const [playerMethods, setPlayerMethods] = useState<{ syncIndex: () => void } | null>(null);
 
@@ -85,7 +86,7 @@ const FPlayer = () => {
     }, [playNextMusic]);
 
     return (
-        <div className={'h-full w-full flex flex-col overflow-hidden relative'}>
+        <div className={'h-full bg-[#212121ff] w-full flex flex-col overflow-hidden relative'}>
             {/* 播放器内容 - 提高层级 */}
             <div className={'w-full flex justify-center'}>
                 <Slider

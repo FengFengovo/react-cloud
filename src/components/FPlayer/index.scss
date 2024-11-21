@@ -6,6 +6,7 @@
     top: -2px !important;
     display: none;
   }
+
 }
 .ant-slider{
   position: relative;
@@ -13,12 +14,18 @@
   margin: 0 !important;
   padding: 0 !important;
   height: 4px;
+  &:hover {
+    .ant-slider-handle {
+      opacity: 1 !important;
+      transform: scale(1.1) !important;
+    }
+
+    .ant-slider-track {
+      filter: brightness(1.1) !important;
+    }
+  }
 }
 .ant-slider-track{
-  //background-image: linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1) !important;
+  background: linear-gradient(to right, #8EC5FC, #E0C3FC) !important;
   height: 4px !important;
 }
-//.nodrag{
-//  -webkit-app-region:no-drag;//设置头部可拖拽
-//  -webkit-user-select:none;//禁用文本选择 防止在拖动范围内选中了文字
-//}

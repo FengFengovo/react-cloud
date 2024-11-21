@@ -4,28 +4,29 @@ import {setIsPlaying} from "@/store/modules/playingStore.ts";
 import {getLikeListAPI} from "@/apis/song.ts";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
 import classNames from "classnames";
+import type {RootState} from "@/store";
 
 const PlayerCenter = ({audioRef}) => {
 
-    const isPlaying = useSelector(state => state.playing.isPlaying)
+    const isPlaying = useSelector((state:RootState) => state.playing.isPlaying)
     const [loveStatus, setLoveStatus] = useState(true)
 
-    const currentUrl = useSelector(state => state.playing.currentUrl);
+    const currentUrl = useSelector((state:RootState) => state.playing.currentUrl);
 
-    const songInfo = useSelector(state => state.playing.songInfo);
+    const songInfo = useSelector((state:RootState) => state.playing.songInfo);
     const dispatch = useDispatch();
     const {playNextMusic, playPrevMusic} = usePlayingMusic()
     // 监听 URL 变化，重置播放状态
 
-    const userInfo = useSelector(state => state.user.userInfo)
+    const userInfo = useSelector<RootState>(state => state.user.userInfo)
     //判断是否喜欢音乐
-
     useEffect(() => {
         if (currentUrl) {
             dispatch(setIsPlaying(true)) // URL 变化时，重置为播放状态
         }
         const getLikeStatus = async () => {
-            const res = await getLikeListAPI(userInfo.userId)
+            // @ts-ignore
+            const res = await getLikeListAPI(userInfo?.userId)
             if (res?.ids?.includes(songInfo?.id)) {
                 setLoveStatus(true)
             } else {
@@ -67,7 +68,7 @@ const PlayerCenter = ({audioRef}) => {
             <i className="iconfont text-30px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
                onClick={Prev}>&#xe63c;</i>
             <i
-                className="iconfont text-35px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer"
+                className="iconfont text-35px mx-40px text-white hover:text-[#fa3d49] transition-all duration-300 hover:scale-110 cursor-pointer "
                 onClick={changePlayerStatus}
             >
                 {isPlaying ? '\ue63b' : '\ue63a'}

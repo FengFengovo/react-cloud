@@ -1,6 +1,9 @@
 import FSongList from "@/components/FSongList";
 import useGetList from "@/components/FSongList/useGetList.ts";
+import {useSelector} from "react-redux";
+import {RootState} from "@/store";
 const  Recently  =()=>{
+    const userInfo = useSelector((state: RootState) => state.user.userInfo);
     const {playList,isLoading} = useGetList();
     return(
         <div className={'m-auto h-full overflow-y-scroll'}>
@@ -11,9 +14,11 @@ const  Recently  =()=>{
                         <span>为您保存近期播放的300首歌曲</span>
                     </div>
                 </div>
-
             </div>
-            <FSongList playList={playList} isLoading={isLoading}/>
+            {userInfo ?<FSongList playList={playList} isLoading={isLoading}/>:
+                <div className={'text-white text-center text-20px'}>请在登录后查看</div>
+            }
+
         </div>
     )
 }

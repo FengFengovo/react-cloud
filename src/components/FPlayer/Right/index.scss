@@ -17,3 +17,10 @@
 .ant-drawer-content-wrapper{
   box-shadow: none !important;
 }
+.ant-drawer-close {
+  color: white !important;
+  transition: transform 0.8s ease !important;
+  &:hover {
+    transform: rotate(180deg) !important;
+  }
+}

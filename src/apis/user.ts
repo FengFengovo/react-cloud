@@ -40,3 +40,9 @@ export const getUserPlayListAPI =(id:string):Promise<PlayList>=> {
         url:`/user/playlist?uid=${id}`,
     })
 }
+//退出登录
+export  const outLoginAPI =()=>{
+    return request({
+        url:'/logout'
+    })
+}

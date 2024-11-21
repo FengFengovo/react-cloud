@@ -154,13 +154,13 @@ function FSongList({playList,isLoading}) {
         },
     ];
 
-    if (!userInfo?.userId) {
-        return (
-            <div className="flex items-center justify-center h-full text-gray-500">
-                请先登录
-            </div>
-        );
-    }
+    // if (!userInfo?.userId) {
+    //     return (
+    //         <div className="flex items-center justify-center h-full text-gray-500">
+    //             请先登录
+    //         </div>
+    //     );
+    // }
 
     return (
         <Spin className={'h-full'} spinning={isLoading}>

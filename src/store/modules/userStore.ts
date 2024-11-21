@@ -1,11 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {loginStatusAPI} from "@/apis/user.ts";
 
+
 const userStore = createSlice({
     name:'user',
     initialState:{
         isLogin:false,
-        userInfo:{},
+        userInfo:null
     },
     reducers:{
         changeLoginStatus(state, action){
@@ -20,6 +21,7 @@ export const {changeLoginStatus,setUserInfo} = userStore.actions;
 const fetchUserInfo= ()=>{
     return async (dispatch)=>{
         const res = await loginStatusAPI()
+        dispatch(changeLoginStatus(true))
         dispatch(setUserInfo(res.data.profile))
     }
 }
