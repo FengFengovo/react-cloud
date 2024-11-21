@@ -1,16 +1,19 @@
 import {useEffect, useRef, useState} from "react";
 import {checkQrStatusAPI, getQrImgAPI, getQrKeyAPI} from "@/apis/user.ts";
 import {useSetCookie} from "@/hooks/useSetCookie.ts";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {message} from "antd";
 import {fetchUserInfo} from "@/store/modules/userStore.ts";
+import {RootState} from "@/store";
 
 const UseQR = () => {
-    const {isLogin, userInfo} = useSelector(state => state.user);
+    const {isLogin, userInfo} = useSelector((state:RootState) => state.user);
     const [showQR, setShowQR] = useState(false);
     const [qrUrl, setQrUrl] = useState('')
+    const dispatch = useDispatch();
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
     useEffect(() => {
+        console.log(userInfo)
         console.log(showQR)
         if (userInfo) {
             message.success(`${userInfo?.nickname},欢迎回来!`)
@@ -21,7 +24,6 @@ const UseQR = () => {
                 const key = res.data.unikey
                 const qrRes = await getQrImgAPI(key)
                 setQrUrl(qrRes.data.qrurl)
-
                 timerRef.current = setInterval(async () => {
                     const qrStarus = await checkQrStatusAPI(key)
                     console.log(qrStarus)
@@ -29,11 +31,11 @@ const UseQR = () => {
                         console.log('登录成功')
                         useSetCookie(qrStarus.cookie)
                         setShowQR(false)
-                        fetchUserInfo()
+                        // @ts-ignore
+                        dispatch(fetchUserInfo())
                         clearInterval(timerRef.current)
-                        location.reload()
                     }
-                }, 2000)
+                }, 1500)
 
             }
             getQrImage()

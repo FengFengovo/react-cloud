@@ -5,8 +5,7 @@ import {Outlet} from "react-router-dom";
 import FPlayer from "@/components/FPlayer";
 import FHeader from "@/components/FHeader";
 import {useEffect} from "react";
-import {loginStatusAPI} from "@/apis/user.ts";
-import {changeLoginStatus, fetchUserInfo} from "@/store/modules/userStore.ts";
+import { fetchUserInfo} from "@/store/modules/userStore.ts";
 import {useDispatch} from "react-redux";
 
 const {Header, Sider, Content} = Layout;
@@ -14,16 +13,8 @@ const {Header, Sider, Content} = Layout;
 const CloudLayout = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        const getStatus = async () => {
-            const res = await loginStatusAPI();
-            if (res.data.profile !== null) {
-                dispatch(changeLoginStatus(true))
-            } else {
-                dispatch(changeLoginStatus(false))
-            }
-        }
-        fetchUserInfo()
-        getStatus()
+        // @ts-ignore
+        dispatch(fetchUserInfo())
     }, [])
     return (
         <Layout className={'h-100vh flex  flex'}>

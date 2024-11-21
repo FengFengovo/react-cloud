@@ -26,7 +26,11 @@ export const getQrImgAPI =(key:string)=> {
     })
 }
 //检查二维码扫描状态（需要轮询）
-export const checkQrStatusAPI =(key:string)=> {
+interface QrStatus{
+    cookie:string,
+    code:number
+}
+export const checkQrStatusAPI =(key:string):Promise<QrStatus>=> {
     return request({
         url:`/login/qr/check?key=${key}`
     })

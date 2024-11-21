@@ -7,21 +7,22 @@ import {useDispatch, useSelector} from "react-redux";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
 import {setPlayList} from "@/store/modules/playingStore.ts";
 import classNames from "classnames";
+import {RootState} from "@/store";
 
 function FSongList({playList,isLoading}) {
 
-    const {userInfo} = useSelector(state => state.user);
-    const [likeList, setLikeList] = useState<number[]>([]);
+    const {userInfo} = useSelector((state:RootState) => state.user);
+    const [likeList, setLikeList] = useState([]);
     const {setCurrentId} = usePlayingMusic();
 
-    const songInfo = useSelector(state => state.playing.songInfo);
+    const songInfo = useSelector((state:RootState) => state.playing.songInfo);
     const dispatch = useDispatch()
     // 获取喜欢列表
     const fetchLikeList = useCallback(async () => {
         if (!userInfo?.userId) return;
         try {
             const res = await getLikeListAPI(userInfo.userId);
-            setLikeList(res.ids || []);
+            setLikeList(res.ids ||[]);
         } catch (error) {
             console.error('获取歌单失败:', error);
             setLikeList([]);
@@ -153,15 +154,6 @@ function FSongList({playList,isLoading}) {
             }
         },
     ];
-
-    // if (!userInfo?.userId) {
-    //     return (
-    //         <div className="flex items-center justify-center h-full text-gray-500">
-    //             请先登录
-    //         </div>
-    //     );
-    // }
-
     return (
         <Spin className={'h-full'} spinning={isLoading}>
             <div className={'flex h-100% overflow-hidden flex-col'}>
