@@ -1,5 +1,5 @@
 import './index.scss';
-import {useDispatch, useSelector} from "react-redux";
+import {useAppSelector, useAppDispatch} from "@/store/hooks";
 import {useEffect, useRef, useState} from "react";
 import {getLyricAPI} from "@/apis/song.ts";
 import '@lrc-player/core/dist/style.css';
@@ -17,12 +17,12 @@ interface Props {
 
 const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady }) => {
 
-    const isPlaying = useSelector(state => state.playing.isPlaying);
+    const isPlaying = useAppSelector(state => state.playing.isPlaying);
 
-    const songInfo= useSelector(state => state.playing.songInfo);
+    const songInfo= useAppSelector(state => state.playing.songInfo);
     const [currentPlayer, setCurrentPlayer] = useState<any>(null);
     const playerRef = useRef<any>(null);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     // 重置滚动条位置
     useEffect(() => {
         const element = document.querySelector('.y-player-container');
@@ -71,13 +71,12 @@ const FPopupPage: React.FC<Props> = ({ isShow, onClose, audioRef, onPlayerReady 
                     const lyrics = lyricData.replace(/^\{.*}$/gm, '').trim();
                     const parsedLrc = res?.yrc?.lyric ? parseLrc(lyrics) : parseYrc(lyrics);
                     const type = res?.yrc?.lyric ? 'lrc' : 'yrc';
-
                     // 确保在更新歌词前清空旧的内容
                     if (container) {
                         container.innerHTML = '';
                     }
-
                     // 更新歌词
+                    // @ts-ignore
                     player.updateAudioLrc(parsedLrc, type);
                 }
             } catch (err) {

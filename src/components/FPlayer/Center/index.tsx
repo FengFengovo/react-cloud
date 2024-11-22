@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from 'react-redux'
+import {useAppDispatch, useAppSelector} from '@/store/hooks'
 import {setIsPlaying} from "@/store/modules/playingStore.ts";
 import {getLikeListAPI} from "@/apis/song.ts";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
@@ -8,24 +8,23 @@ import type {RootState} from "@/store";
 
 const PlayerCenter = ({audioRef}) => {
 
-    const isPlaying = useSelector((state:RootState) => state.playing.isPlaying)
+    const isPlaying = useAppSelector(state => state.playing.isPlaying)
     const [loveStatus, setLoveStatus] = useState(true)
 
-    const currentUrl = useSelector((state:RootState) => state.playing.currentUrl);
+    const currentUrl = useAppSelector(state => state.playing.currentUrl);
 
-    const songInfo = useSelector((state:RootState) => state.playing.songInfo);
-    const dispatch = useDispatch();
+    const songInfo = useAppSelector((state:RootState) => state.playing.songInfo);
+    const dispatch = useAppDispatch();
     const {playNextMusic, playPrevMusic} = usePlayingMusic()
     // 监听 URL 变化，重置播放状态
 
-    const userInfo = useSelector<RootState>(state => state.user.userInfo)
+    const userInfo = useAppSelector(state => state.user.userInfo)
     //判断是否喜欢音乐
     useEffect(() => {
         if (currentUrl) {
             dispatch(setIsPlaying(true)) // URL 变化时，重置为播放状态
         }
         const getLikeStatus = async () => {
-            // @ts-ignore
             const res = await getLikeListAPI(userInfo?.userId)
             if (res?.ids?.includes(songInfo?.id)) {
                 setLoveStatus(true)

@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {loginStatusAPI} from "@/apis/user.ts";
 
 const userStore = createSlice({
@@ -17,16 +17,17 @@ const userStore = createSlice({
     }
 })
 export const {changeLoginStatus,setUserInfo} = userStore.actions;
-const fetchUserInfo= ()=>{
-    return async (dispatch:any)=>{
+
+const fetchUserInfo =createAsyncThunk(
+    'user/fetchUserInfo',
+    async (_,{dispatch}) => {
         const res = await loginStatusAPI()
-        if (res.data.profile!==null)
-        {
+        if (res.data.profile!==null){
             dispatch(changeLoginStatus(true))
             dispatch(setUserInfo(res.data.profile))
         }
     }
-}
+)
 export {fetchUserInfo}
 
 const userReducer = userStore.reducer

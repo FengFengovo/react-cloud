@@ -1,16 +1,15 @@
-import {useSelector} from "react-redux";
+import {useAppSelector} from "@/store/hooks";
 import './index.scss'
 //未播放情况下默认封面
 import defaultImg from '@/assets/default.jpg'
-import type {RootState} from "@/store";
 
 
 
 const PlayerLeft = () => {
 
-    const isPlaying = useSelector((state:RootState) => state.playing.isPlaying);
+    const isPlaying = useAppSelector(state => state.playing.isPlaying);
 
-    const songInfo = useSelector((state:RootState) => state.playing.songInfo)
+    const songInfo = useAppSelector(state => state.playing.songInfo)
     //弹出层状态
 
 
@@ -22,7 +21,7 @@ const PlayerLeft = () => {
                     <img
                         src={songInfo ? songInfo?.al?.picUrl : defaultImg}
                         className={`record-img ${isPlaying ? 'rotate-animation' : 'rotate-animation paused'}`}
-                    />
+                     alt={''}/>
                 </div>
             </div>
             <div className={'flex h-50px ml-15px flex-col justify-around '}>

@@ -8,7 +8,7 @@ export const likeSongAPI = (id: string, like?: boolean) => {
     });
 };
 interface LikeList {
-    ids:[];
+    ids:string[];
 }
 //获取喜欢音乐列表接口
 export const getLikeListAPI = (id: string):Promise<LikeList> => {

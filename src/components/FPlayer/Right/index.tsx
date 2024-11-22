@@ -1,12 +1,22 @@
 import {MutedOutlined, SoundOutlined} from "@ant-design/icons";
 import {Drawer, Slider} from "antd";
-import {memo, useCallback, useEffect, useMemo, useState} from "react";
-import {useSelector} from "react-redux";
+import {memo, MutableRefObject, useCallback, useEffect, useMemo, useState} from "react";
+import {useAppSelector} from "@/store/hooks.ts";
 import './index.scss';
-import type {RootState} from "@/store";
+interface PlayListItemProps {
+    item: {
+        id: number;
+        name: string;
+        ar: Array<{ name: string }>;
+    };
+    isActive: boolean;
+}
+interface PlayerRightProps {
+    audioRef: MutableRefObject<HTMLAudioElement>;
+}
 
 // 抽离播放列表项组件并使用 memo
-const PlayListItem = memo(({item, isActive}) => (
+const PlayListItem = memo(({item, isActive}:PlayListItemProps) => (
     <div className={'bg-black rounded-lg w-97% m-auto my-3px'}>
         <div className="flex flex-col rounded-lg hover:bg-white/10 transition-all duration-200 p4 cursor-pointer">
       <span className={`
@@ -23,19 +33,19 @@ const PlayListItem = memo(({item, isActive}) => (
     </div>
 ));
 
-const PlayerRight = memo(({audioRef}) => {
+const PlayerRight = memo(({audioRef}:PlayerRightProps) => {
     const [volume, setVolume] = useState(100);
     const [openDrawer, setOpenDrawer] = useState(false);
 
-    const playList = useSelector((state: RootState) => state.playing.playList);
-    const currentSongId = useSelector((state: RootState) => state.playing.songInfo?.id);
+    const playList = useAppSelector(state => state.playing.playList);
+    const currentSongId = useAppSelector(state => state.playing.songInfo?.id);
 
     // 缓存事件处理函数
     const handleVolumeChange = useCallback((value) => {
         if (audioRef.current) {
             audioRef.current.volume = value / 100;
             if (audioRef.current.volume !== 0) {
-                localStorage.setItem("volume", audioRef.current.volume);
+                localStorage.setItem("volume", String(audioRef.current.volume));
             }
             setVolume(value);
         }
@@ -48,7 +58,7 @@ const PlayerRight = memo(({audioRef}) => {
         } else {
             const storedVolume = localStorage.getItem("volume");
             const volumeValue = parseFloat(storedVolume) * 100;
-            audioRef.current.volume = storedVolume;
+            audioRef.current.volume = Number(storedVolume);
             setVolume(volumeValue);
         }
     }, [audioRef]);

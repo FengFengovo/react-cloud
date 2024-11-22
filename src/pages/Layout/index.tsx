@@ -6,14 +6,13 @@ import FPlayer from "@/components/FPlayer";
 import FHeader from "@/components/FHeader";
 import {useEffect} from "react";
 import { fetchUserInfo} from "@/store/modules/userStore.ts";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "@/store/hooks.ts";
 
 const {Header, Sider, Content} = Layout;
 
 const CloudLayout = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        // @ts-ignore
         dispatch(fetchUserInfo())
     }, [])
     return (

@@ -1,10 +1,10 @@
 import {AutoComplete, AutoCompleteProps, Avatar, Modal, Popover, QRCode} from "antd";
 import './index.scss'
 import useQR from "@/components/FHeader/useQR.ts";
-import {useDispatch, useSelector} from "react-redux";
+import type { KeyboardEvent } from 'react';
+import {useAppDispatch,useAppSelector} from '@/store/hooks'
 import {DeleteOutlined, LeftOutlined, SearchOutlined, UserOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
-
 import useSearch from "@/components/FHeader/useSearch.ts";
 import {useEffect, useState} from "react";
 import classNames from "classnames";
@@ -24,9 +24,8 @@ const FHeader = () => {
     const [open, setOpen] = useState<boolean>(false)
     const {defaultKey, hotKey, getKeySuggets} = useSearch()
     const {showQR, setShowQR, qrUrl} = useQR()
-    const {isLogin} = useSelector(state => state.user)
-    const userInfo = useSelector(state => state.user.userInfo)
-    const dispatch = useDispatch()
+    const userInfo = useAppSelector(state => state.user.userInfo)
+    const dispatch = useAppDispatch()
     const navigate = useNavigate();
     const handleSearch = async (value: string) => {
         try {
@@ -70,7 +69,7 @@ const FHeader = () => {
         setSearchHistory(history);
     }, [hotKey]);
     // 键盘enter按下触发搜索
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             navigate(`/search?key=${value}`);
             setOpen(false)
@@ -164,7 +163,7 @@ const FHeader = () => {
                 {
                     userInfo ?
                     <div className={'items-center flex ml-20'}>
-                        <img className={'h-30px w-30px rounded-full'} src={userInfo?.avatarUrl}/>
+                        <img className={'h-30px w-30px rounded-full'} src={userInfo?.avatarUrl} alt={''}/>
                         <Popover
                             trigger={'click'}
                             arrow={false}

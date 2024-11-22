@@ -12,6 +12,7 @@ interface PlayerState {
         name: string;
         id: string;
         al: {
+            name:string
             picUrl: string;
         };
     } | null;
@@ -37,7 +38,7 @@ const playingStore = createSlice({
         setIsPlaying: (state, action: PayloadAction<boolean>) => {
             state.isPlaying = action.payload;
         },
-        setSongInfo: (state, action: PayloadAction<object>) => {
+        setSongInfo: (state, action: PayloadAction<any>) => {
 
             state.songInfo = action.payload;
         },

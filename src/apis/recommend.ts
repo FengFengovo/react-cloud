@@ -1,7 +1,10 @@
 import request from "@/utils/index";
 
 //获取每日推荐歌单
-export function getResourceAPI()  {
+interface Recommend{
+    recommend:any[]
+}
+export function getResourceAPI():Promise<Recommend>  {
     return request({
         url:'/recommend/resource',
     })

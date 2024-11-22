@@ -4,7 +4,7 @@ import {Slider} from "antd"
 import PlayerLeft from "@/components/FPlayer/Left";
 import PlayerRight from "@/components/FPlayer/Right";
 import PlayerCenter from "@/components/FPlayer/Center";
-import {useSelector} from "react-redux";
+import {useAppSelector} from "@/store/hooks";
 import {useEffect, useRef, useState} from "react";
 import FPopupPage from "@/components/FPopupPage";
 import dayjs from "dayjs";
@@ -16,12 +16,11 @@ dayjs.extend(duration);
 const FPlayer = () => {
     // 创建对 audio 元素的引用
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const currentUrl = useSelector((state:RootState) => state.playing.currentUrl);
+    const currentUrl = useAppSelector((state:RootState) => state.playing.currentUrl);
     const [progress, setProgress] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const {playNextMusic} = usePlayingMusic()
-    const songInfo =useSelector((state:RootState) => state.playing.songInfo);
-    // const isPlaying =useSelector((state:RootState) => state.playing.isPlaying)
+    const songInfo =useAppSelector((state:RootState) => state.playing.songInfo);
     // 存储子组件方法
     const [playerMethods, setPlayerMethods] = useState<{ syncIndex: () => void } | null>(null);
 
@@ -60,8 +59,7 @@ const FPlayer = () => {
     const handleSliderChange = (value) => {
         const audio = audioRef.current;
         if (audio) {
-            const time = (value / 100) * audio.duration;
-            audio.currentTime = time;
+            audio.currentTime = (value / 100) * audio.duration;
             setProgress(value);
             // 调用子组件的同步歌词方法
             playerMethods?.syncIndex();

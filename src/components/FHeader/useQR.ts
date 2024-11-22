@@ -1,16 +1,15 @@
 import {useEffect, useRef, useState} from "react";
 import {checkQrStatusAPI, getQrImgAPI, getQrKeyAPI} from "@/apis/user.ts";
 import {useSetCookie} from "@/hooks/useSetCookie.ts";
-import {useDispatch, useSelector} from "react-redux";
 import {message} from "antd";
 import {fetchUserInfo} from "@/store/modules/userStore.ts";
-import {RootState} from "@/store";
+import {useAppDispatch,useAppSelector} from "@/store/hooks.ts";
 
 const UseQR = () => {
-    const {isLogin, userInfo} = useSelector((state:RootState) => state.user);
+    const {isLogin, userInfo} = useAppSelector(state => state.user);
     const [showQR, setShowQR] = useState(false);
     const [qrUrl, setQrUrl] = useState('')
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
     useEffect(() => {
         if (userInfo) {
@@ -29,7 +28,6 @@ const UseQR = () => {
                         console.log('登录成功')
                         useSetCookie(qrStarus.cookie)
                         setShowQR(false)
-                        // @ts-ignore
                         dispatch(fetchUserInfo())
                         clearInterval(timerRef.current)
                     }

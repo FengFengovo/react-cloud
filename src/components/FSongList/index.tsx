@@ -3,20 +3,19 @@ import {Spin, Table} from "antd";
 import {debounce} from 'lodash';
 import {getLikeListAPI, likeSongAPI} from "@/apis/song.ts";
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useAppSelector, useAppDispatch} from "@/store/hooks";
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts";
 import {setPlayList} from "@/store/modules/playingStore.ts";
 import classNames from "classnames";
-import {RootState} from "@/store";
 
 function FSongList({playList,isLoading}) {
 
-    const {userInfo} = useSelector((state:RootState) => state.user);
+    const {userInfo} = useAppSelector(state => state.user);
     const [likeList, setLikeList] = useState([]);
     const {setCurrentId} = usePlayingMusic();
 
-    const songInfo = useSelector((state:RootState) => state.playing.songInfo);
-    const dispatch = useDispatch()
+    const songInfo = useAppSelector(state => state.playing.songInfo);
+    const dispatch = useAppDispatch()
     // 获取喜欢列表
     const fetchLikeList = useCallback(async () => {
         if (!userInfo?.userId) return;
@@ -154,6 +153,7 @@ function FSongList({playList,isLoading}) {
             }
         },
     ];
+
     return (
         <Spin className={'h-full'} spinning={isLoading}>
             <div className={'flex h-100% overflow-hidden flex-col'}>
@@ -167,6 +167,7 @@ function FSongList({playList,isLoading}) {
                         rowClassName={(record)=>{
                             return classNames('',{ 'row-active':record.id === songInfo?.id})
                         }}
+                        // @ts-ignore
                         columns={columns}
                         pagination={false}
                         onRow={(_, index) => ({

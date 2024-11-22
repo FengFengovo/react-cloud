@@ -3,7 +3,7 @@ import {Menu, MenuProps} from 'antd';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getUserPlayListAPI} from "@/apis/user.ts";
-import {useSelector} from "react-redux";
+import {useAppSelector} from "@/store/hooks";
 
 // 定义接口
 interface PlayListItem {
@@ -14,7 +14,7 @@ interface PlayListItem {
 const FMenu = () => {
     const navigation = useNavigate();
 
-    const {userInfo} = useSelector(state => state.user);
+    const {userInfo} = useAppSelector(state => state.user);
     const location = useLocation();
     const [uPlayList, setUPlayList] = useState<PlayListItem[]>([]);
     const [selectedKeys, setSelectedKeys] = useState<string[]>(['/']);
@@ -32,14 +32,12 @@ const FMenu = () => {
             setSelectedKeys([location.pathname]);
         }
     }, [location]);
-    const itemClick = (value: MenuProps['onClick']) => {
-
-        const id = Number(value.key);
+    const itemClick:MenuProps['onClick'] = ({key}) => {
+        const id = Number(key);
         if (!isNaN(id)) {
             navigation(`/playList?id=${id}`);
         } else {
-
-            navigation(value.key);
+            navigation(key);
         }
     };
 

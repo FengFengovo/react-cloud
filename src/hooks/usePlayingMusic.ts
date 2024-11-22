@@ -1,16 +1,16 @@
 // hooks/usePlayingMusic.ts
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCurrentIndex, setCurrentUrl, setSongInfo } from "@/store/modules/playingStore.ts";
 import { getMusicInfoAPI, getMusicUrlAPI } from "@/apis/song.ts";
 
 function usePlayingMusic() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const currentIndex = useSelector(state => state.playing.currentIndex);
+    const currentIndex = useAppSelector(state => state.playing.currentIndex);
 
-    const currentUrl = useSelector(state => state.playing.currentUrl);
+    const currentUrl = useAppSelector(state => state.playing.currentUrl);
 
-    const playList = useSelector(state => state.playing.playList);
+    const playList = useAppSelector(state => state.playing.playList);
 
     const setMusicData = async (index: number) => {
 
