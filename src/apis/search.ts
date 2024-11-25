@@ -11,7 +11,6 @@ interface DefaultKey {
         realkeyword: string
     }
 }
-
 export const getDefaultKeyAPI = (): Promise<DefaultKey> => {
     return request({
         url: '/search/default'

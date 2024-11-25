@@ -1,15 +1,17 @@
 import {AutoComplete, AutoCompleteProps, Avatar, Modal, Popover, QRCode} from "antd";
 import './index.scss'
 import useQR from "@/components/FHeader/useQR.ts";
-import type { KeyboardEvent } from 'react';
-import {useAppDispatch,useAppSelector} from '@/store/hooks'
+import type {KeyboardEvent} from 'react';
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from '@/store/hooks'
 import {DeleteOutlined, LeftOutlined, SearchOutlined, UserOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
 import useSearch from "@/components/FHeader/useSearch.ts";
-import {useEffect, useState} from "react";
 import classNames from "classnames";
 import {outLoginAPI} from "@/apis/user.ts";
 import {changeLoginStatus} from "@/store/modules/userStore.ts";
+
+
 
 const FHeader = () => {
     const [options, setOptions] = useState<AutoCompleteProps['options']>([])
@@ -81,23 +83,28 @@ const FHeader = () => {
         dispatch(changeLoginStatus(false))
         location.reload()
     }
-
+    //关闭程序
+    const closeWindow = () => {
+        (window.ipcRenderer as  any).closeWindow()
+    }
+    //最小化程序
+    const miniMize = () => {
+        (window.ipcRenderer as any).minimizeWindow()
+    }
     return (
 
-        <div className={'h-full m-auto flex items-center'}>
-            <div className={'flex'}>
-                <Modal
-                    title="请使用网易云APP扫码"
-                    open={showQR}
-                    onCancel={() => setShowQR(false)}
-                    footer=""
-                    width={300}
-                >
-                    <div className={'flex items-center justify-center mt-50px'}>
-                        {qrUrl && <QRCode value={qrUrl}/>}
-                    </div>
-                </Modal>
-            </div>
+        <div className={'h-full m-auto flex justify-between  drag'}>
+            <Modal
+                title="请使用网易云APP扫码"
+                open={showQR}
+                onCancel={() => setShowQR(false)}
+                footer=""
+                width={300}
+            >
+                <div className={'flex items-center justify-center mt-50px'}>
+                    {qrUrl && <QRCode value={qrUrl}/>}
+                </div>
+            </Modal>
             <div className={'flex items-center'}>
                 <LeftOutlined onClick={() => navigate(-1)} className={'h-full text-25px text-white mr-10px'}/>
                 <AutoComplete
@@ -160,9 +167,11 @@ const FHeader = () => {
                     )}
                     prefix={<SearchOutlined className={'text-gray'}/>}
                 />
-                {
-                    userInfo ?
-                    <div className={'items-center flex ml-20'}>
+
+            </div>
+            {
+                userInfo ?
+                    <div className={'items-center flex'}>
                         <img className={'h-30px w-30px rounded-full'} src={userInfo?.avatarUrl} alt={''}/>
                         <Popover
                             trigger={'click'}
@@ -183,15 +192,17 @@ const FHeader = () => {
                     :
                     <div className={'items-center flex ml-20'}>
                         <Avatar className={'bg-gray'} size={'default'} icon={<UserOutlined/>}/>
-                        <span onClick={()=>setShowQR(true)}
+                        <span onClick={() => setShowQR(true)}
                               className={'ml-5px text-gray-3 cursor-pointer hover:text-gray-1'}>
                             未登录
                         </span>
                     </div>
-                }
+            }
+            <div className={''}>
+                <i className={'iconfont text-20px text-white hover:cursor-pointer hover:text-red-6'} onClick={miniMize}>&#xe607;</i>
+                <i className={'iconfont text-20px text-white ml-5 hover:cursor-pointer hover:text-red-6 '} onClick={closeWindow}>&#xe660;</i>
             </div>
-
         </div>
     )
 }
-export default FHeader;
+export default FHeader

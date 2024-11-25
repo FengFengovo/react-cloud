@@ -28,11 +28,11 @@ const FMenu = () => {
         const playlistId = searchParams.get('id');
         if (playlistId) {
             setSelectedKeys([playlistId]);
-        }else {
+        } else {
             setSelectedKeys([location.pathname]);
         }
     }, [location]);
-    const itemClick:MenuProps['onClick'] = ({key}) => {
+    const itemClick: MenuProps['onClick'] = ({key}) => {
         const id = Number(key);
         if (!isNaN(id)) {
             navigation(`/playList?id=${id}`);
@@ -45,11 +45,13 @@ const FMenu = () => {
         const defaultItems: MenuProps['items'] = [
             {
                 key: '/',
-                label: '推荐'
+                label: '推荐',
+                icon: <i className={'iconfont'}>&#xe618;</i>
             },
             {
-              key:'/recently',
-              label: '最近播放'
+                key: '/recently',
+                label: '最近播放',
+                icon:<i className={'iconfont'}>&#xe676;</i>
             },
             {
                 type: 'divider',

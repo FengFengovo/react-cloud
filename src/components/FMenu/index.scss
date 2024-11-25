@@ -8,7 +8,9 @@
   background-color: #eceff2;
   border-right:none !important;
   .ant-menu-item{
-    color:gray !important;
+    display: flex;
+    align-items: center;
+    color: #cacaca !important;
     &:hover{
       background-color: white !important;
       color: #1d1a1a !important;
@@ -23,7 +25,4 @@
   width: 80%;
   margin: 0 auto;
   background-color: #ede5e5;
-}
-.drag{
-  -webkit-app-region: drag;//设置头部可拖拽
 }

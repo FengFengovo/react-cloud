@@ -22,7 +22,7 @@ const CloudLayout = () => {
                     <FMenu/>
                 </Sider>
                 <Layout>
-                    <Header className={'bg-[#13131aff]'}>
+                    <Header className={'bg-[#13131aff] '}>
                         <FHeader/>
                     </Header>
                     <Content className={'bg-[#13131aff]'}>
