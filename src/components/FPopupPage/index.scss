@@ -4,7 +4,7 @@
   right: 0;
   bottom: 0;
   height: 100vh;
-  background: #b69898;  // 或者你想要的背景色
+  background: #b69898;
   z-index: 1000;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
@@ -38,7 +38,7 @@
   .lrc-line {
     padding: 12px 0;
     font-size: 16px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     text-align: center;
     transition: all 0.3s;
 
@@ -49,17 +49,24 @@
     }
   }
 }
-.y-player-container{
+.y-player-container {
   height: 100% !important;
   overflow-y: scroll !important;
-  scrollbar-width: none;  /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  .y-player-scroll{
+  scrollbar-width: none;
+  .y-player-scroll {
     overflow: auto !important;
   }
-  .y-player-item{
+  .y-player-item {
     width: 500px !important;
   }
+}
+// 在现有的 .popup-page 样式中添加
+.scroll-type {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 
-
+  .scroll-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }

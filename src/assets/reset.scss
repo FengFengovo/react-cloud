@@ -1,82 +1,89 @@
-html,body,#root,#app{
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body,
+#root,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
-.drag{
-    -webkit-app-region: drag;//设置头部可拖拽
+.drag {
+  -webkit-app-region: drag; //设置头部可拖拽
 }
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
-    font-family: 'iconfont';  /* Project id 4745381 */
-    src: url('//at.alicdn.com/t/c/font_4745381_gqyfwvgc2ll.woff2?t=1732516781931') format('woff2'),
-    url('//at.alicdn.com/t/c/font_4745381_gqyfwvgc2ll.woff?t=1732516781931') format('woff'),
-    url('//at.alicdn.com/t/c/font_4745381_gqyfwvgc2ll.ttf?t=1732516781931') format('truetype');
+  font-family: "iconfont"; /* Project id 4745381 */
+  src: url("//at.alicdn.com/t/c/font_4745381_y2i9u8rmuq.woff2?t=1732782271214")
+      format("woff2"),
+    url("//at.alicdn.com/t/c/font_4745381_y2i9u8rmuq.woff?t=1732782271214")
+      format("woff"),
+    url("//at.alicdn.com/t/c/font_4745381_y2i9u8rmuq.ttf?t=1732782271214")
+      format("truetype");
 }
 @font-face {
-    font-family: 'iconfont1';
-    src: url('./font/iconfont/iconfont.ttf') format('truetype');
+  font-family: "iconfont1";
+  src: url("./font/iconfont/iconfont.ttf") format("truetype");
 }
 @font-face {
-    font-family: 'PingFang SC Heavy';
-    src: url("./font/PingFang Heavy.otf");
+  font-family: "PingFang SC Heavy";
+  src: url("./font/PingFang Heavy.otf");
 }
-.iconfont{
-    font-family: "iconfont", serif !important;
-    font-size:16px;font-style:normal;
+.iconfont {
+  font-family: "iconfont", serif !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+* {
+  .iconfont1 {
+    font-family: "iconfont1", serif !important;
+    font-style: normal;
     -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
-}
-*{
-    .iconfont1 {
-        font-family: 'iconfont1', serif !important;
-        font-style: normal;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    font-family: 'PingFang SC Heavy', serif;
-    -webkit-app-region: no-drag;
-    -webkit-user-select:none;//禁用文本选择 防止在拖动范围内选中了文字
-    &::-webkit-scrollbar {
-        width: 7px;
-        height: 8px;
-    }
+  }
+  font-family: "PingFang SC Heavy", serif;
+  -webkit-app-region: no-drag;
+  -webkit-user-select: none; //禁用文本选择 防止在拖动范围内选中了文字
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 8px;
+  }
 
-    &::-webkit-scrollbar-track {
-        background: #f0f0f0;
-        border-radius: 4px;
-    }
-    &::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
     background: #13131a;
     border-radius: 4px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: #373535;
-        border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #373535;
+    border-radius: 4px;
 
-        &:hover {
-            background: #999;
-        }
+    &:hover {
+      background: #999;
     }
+  }
 }
 .overflow-y-scroll {
-    background-color: #13131a;
+  background-color: #13131a;
 }
 //隐藏滚动条
 .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;             /* Chrome, Safari and Opera */
+  display: none; /* Chrome, Safari and Opera */
 }
 * {
-    outline: none !important;
-    -webkit-focus-ring-color: transparent;
+  outline: none !important;
+  -webkit-focus-ring-color: transparent;
 }
 
 :focus {
-    outline: none !important;
+  outline: none !important;
 }
