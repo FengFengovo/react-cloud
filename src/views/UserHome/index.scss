@@ -1,0 +1,8 @@
+.ant-tabs {
+  .ant-tabs-tab {
+    color: white;
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: white !important; /* 将颜色改为你想要的颜色 */
+  }
+}

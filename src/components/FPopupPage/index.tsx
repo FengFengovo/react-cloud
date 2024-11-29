@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
-import ColorThief from "colorthief";
-import "./index.scss";
-import "@lrc-player/core/dist/style.css";
-import { useAppSelector } from "@/store/hooks.ts";
-import FLyric from "@/components/FLyric";
-import FComment from "../FComment";
-
-const FPopupPage = ({ isShow, onClose, audioRef, onPlayerReady }) => {
-  const songInfo = useAppSelector((state) => state.playing.songInfo);
-  const [backgroundColor, setBackgroundColor] = useState("rgb(33, 33, 33)");
+import { useEffect, useState } from "react"
+import ColorThief from "colorthief"
+import "./index.scss"
+import "@lrc-player/core/dist/style.css"
+import { useAppSelector } from "@/store/hooks.ts"
+import FLyric from "@/components/FLyric"
+import FComment from "../FComment"
+import { useAppDispatch } from "@/store/hooks.ts"
+import { setshowPopurPage } from "@/store/modules/playingStore"
+const FPopupPage = ({ isShow, audioRef, onPlayerReady }) => {
+  const dispatch = useAppDispatch()
+  const songInfo = useAppSelector((state) => state.playing.songInfo)
+  const [backgroundColor, setBackgroundColor] = useState("rgb(33, 33, 33)")
 
   useEffect(() => {
     if (songInfo?.al?.picUrl) {
-      const img = new Image();
-      img.crossOrigin = "Anonymous";
-      img.src = songInfo.al.picUrl;
+      const img = new Image()
+      img.crossOrigin = "Anonymous"
+      img.src = songInfo.al.picUrl
 
       img.onload = () => {
-        const colorThief = new ColorThief();
-        const color = colorThief.getColor(img);
+        const colorThief = new ColorThief()
+        const color = colorThief.getColor(img)
         // 将RGB值转换为深色调
-        const darkColor = color.map((c) => Math.floor(c * 0.6));
-        setBackgroundColor(`rgb(${darkColor.join(",")})`);
-      };
+        const darkColor = color.map((c) => Math.floor(c * 0.6))
+        setBackgroundColor(`rgb(${darkColor.join(",")})`)
+      }
     }
-  }, [songInfo?.al?.picUrl]);
+  }, [songInfo?.al?.picUrl])
 
   return (
     <div
@@ -46,7 +48,9 @@ const FPopupPage = ({ isShow, onClose, audioRef, onPlayerReady }) => {
         </div>
         {/* 内容层 */}
         <FLyric
-          onClose={onClose}
+          onClose={() => {
+            dispatch(setshowPopurPage(false))
+          }}
           audioRef={audioRef}
           onPlayerReady={onPlayerReady}
         />
@@ -56,7 +60,7 @@ const FPopupPage = ({ isShow, onClose, audioRef, onPlayerReady }) => {
         <FComment />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FPopupPage;
+export default FPopupPage

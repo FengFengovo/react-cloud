@@ -1,15 +1,29 @@
-import { Divider } from "antd";
-import { Suspense } from "react";
-import { useAppSelector } from "@/store/hooks";
-import { likeCommentAPI } from "@/apis/song";
-import classNames from "classnames";
+import { Divider, message } from "antd"
+import { Suspense } from "react"
+import { useAppSelector } from "@/store/hooks"
+import { likeCommentAPI } from "@/apis/song"
+import { useNavigate } from "react-router-dom"
+import classNames from "classnames"
+import { useAppDispatch } from "@/store/hooks"
+import { setshowPopurPage } from "@/store/modules/playingStore"
 export default function CommentItem({ CommentList }) {
-  const songInfo = useAppSelector((state) => state.playing.songInfo);
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const songInfo = useAppSelector((state) => state.playing.songInfo)
   //给评论点赞
   const likeComment = async (id) => {
-    await likeCommentAPI(songInfo.id, id);
-  };
+    await likeCommentAPI(songInfo.id, id)
+    message.success("评论已点赞")
+  }
+  //打开评论框
 
+  //查看用户主页
+  const checkUserHome = (item) => {
+    //此时关闭歌词页面
+    dispatch(setshowPopurPage(false))
+    const { userId } = item.user
+    navigate(`userhome?id=${userId}`)
+  }
   return (
     <>
       {CommentList?.map((item) => {
@@ -21,7 +35,10 @@ export default function CommentItem({ CommentList }) {
                 src={item.user.avatarUrl}
               />
               <div className="ml-3 flex flex-col w-full">
-                <div className="hover-cursor-pointer text-blue-3">
+                <div
+                  onClick={() => checkUserHome(item)}
+                  className="hover-cursor-pointer text-blue-3"
+                >
                   {item.user.nickname}
                 </div>
                 <div>{item.content}</div>
@@ -37,7 +54,7 @@ export default function CommentItem({ CommentList }) {
                       <i
                         onClick={() => likeComment(item.commentId)}
                         className={classNames(
-                          "iconfont ml-1 hover:text-white hover:cursor-pointer"
+                          "iconfont ml-1 hover:text-white hover:cursor-pointer",
                         )}
                       >
                         &#xe62a;
@@ -52,8 +69,8 @@ export default function CommentItem({ CommentList }) {
             </div>
             <Divider />
           </Suspense>
-        );
+        )
       })}
     </>
-  );
+  )
 }
