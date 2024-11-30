@@ -1,27 +1,25 @@
 import { useSearchParams } from "react-router-dom"
-import { getUserDetailAPI, getUserPlayListAPI } from "@/apis/user"
-import { useEffect, useState } from "react"
 import "./index.scss"
-import type { UserDetail } from "@/apis/user"
 import { ManOutlined, PlusOutlined, WomanOutlined } from "@ant-design/icons"
 import { Tabs, TabsProps } from "antd"
 import UserPlayList from "./components/UserPlayList"
+import UseUserHome from "./UseUserHome"
+import UserDynamic from "./components/UserDynamic"
 
 export default function UserHome() {
   const [searchParams] = useSearchParams()
-  const [userInfo, setUserInfo] = useState<UserDetail>()
-  const [userPlayList, setUserPlayList] = useState([])
   const userId = searchParams.get("id")
+  const { userInfo, userPlayList, userDynamic } = UseUserHome(userId)
   const items: TabsProps["items"] = [
     {
       key: "1",
       label: "歌单",
-      children: <UserPlayList playlist={userPlayList} />,
+      children: <UserPlayList userPlayList={userPlayList} />,
     },
     {
       key: "2",
       label: "动态",
-      children: "Content of Tab Pane 2",
+      children: <UserDynamic userDynamic={userDynamic} />,
     },
     {
       key: "3",
@@ -29,15 +27,7 @@ export default function UserHome() {
       children: "Content of Tab Pane 3",
     },
   ]
-  useEffect(() => {
-    const getFolloweds = async () => {
-      const res = await getUserDetailAPI(userId)
-      const playlist = await getUserPlayListAPI(userId)
-      setUserPlayList(playlist?.playlist)
-      setUserInfo(res)
-    }
-    getFolloweds()
-  }, [userId])
+
   return (
     <div className="h-full overflow-y-scroll w-100% m-auto pt-3 flex flex-col text-white">
       <div className="h-200px flex w-90% m-auto mb-5 ">

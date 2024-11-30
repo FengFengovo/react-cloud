@@ -11,8 +11,8 @@ let win;
 function createWindow() {
   Menu.setApplicationMenu(null);
   win = new BrowserWindow({
-    width: 1050,
-    minWidth: 1050,
+    width: 1080,
+    minWidth: 1080,
     height: 750,
     minHeight: 750,
     resizable: false,

@@ -50,22 +50,6 @@ export const outLoginAPI = () => {
   })
 }
 
-// //获取用户粉丝列表
-// interface Follow {
-//   followeds: []
-//   follow: []
-// }
-// export const getFollowedsAPI = (uid): Promise<Follow> => {
-//   return request({
-//     url: `/user/followeds?uid=${uid}`,
-//   })
-// }
-// //获取用户关注列表
-// export const getFollowsAPI = (uid): Promise<Follow> => {
-//   return request({
-//     url: `/user/follows?uid=${uid}`,
-//   })
-// }
 //获取用户详情
 export interface UserDetail {
   level: number
@@ -82,5 +66,31 @@ export interface UserDetail {
 export const getUserDetailAPI = (uid): Promise<UserDetail> => {
   return request({
     url: `/user/detail?uid=${uid}`,
+  })
+}
+//获取用户动态
+export interface Dynamics {
+  events: [
+    {
+      actName?: string //标签
+      info: {
+        commentThread: {
+          commentCount: number //评论数量
+          likedCount: number //点赞数量
+          shareCount: number // 分享数量
+        }
+      }
+      pics: [
+        {
+          originUrl: string
+        },
+      ]
+      json: string
+    },
+  ]
+}
+export const getUserDynamicAPI = (uid): Promise<Dynamics> => {
+  return request({
+    url: `/user/event?uid=${uid}`,
   })
 }
