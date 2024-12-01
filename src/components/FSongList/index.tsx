@@ -109,14 +109,20 @@ function FSongList({ playList, isLoading }) {
               {record.name}
             </span>
 
-            <span
-              className={classNames("font-bold  text-13px text-gray-3 ", {
-                "text-#ff3d89 drop-shadow-[0_0_10px_#ff3d89]":
-                  record.id === songInfo?.id,
-              })}
-            >
-              {record.ar[0]?.name}
-            </span>
+            <div className="font-bold text-13px text-gray-3">
+              {record.ar?.map((item, index) => (
+                <span
+                  key={item.id}
+                  className={classNames("font-bold text-13px text-gray-3", {
+                    "text-#ff3d89 drop-shadow-[0_0_10px_#ff3d89]":
+                      record.id === songInfo?.id,
+                  })}
+                >
+                  {item.name}
+                  {index < record.ar.length - 1 && " /"}{" "}
+                </span>
+              ))}
+            </div>
           </div>
         )
       },
@@ -127,7 +133,7 @@ function FSongList({ playList, isLoading }) {
       key: "al.name",
     },
     {
-      title: "操作",
+      title: "喜欢",
       width: 80,
       align: "center",
       key: "actions",

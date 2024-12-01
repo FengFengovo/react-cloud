@@ -3,13 +3,13 @@ import "./index.scss"
 import { ManOutlined, PlusOutlined, WomanOutlined } from "@ant-design/icons"
 import { Tabs, TabsProps } from "antd"
 import UserPlayList from "./components/UserPlayList"
-import UseUserHome from "./UseUserHome"
+import useUserHome from "./useUserHome"
 import UserDynamic from "./components/UserDynamic"
 
 export default function UserHome() {
   const [searchParams] = useSearchParams()
   const userId = searchParams.get("id")
-  const { userInfo, userPlayList, userDynamic } = UseUserHome(userId)
+  const { userInfo, userPlayList, userDynamic } = useUserHome(userId)
   const items: TabsProps["items"] = [
     {
       key: "1",

@@ -6,7 +6,7 @@ import {
 import type { Dynamics } from "@/apis/user"
 import { useEffect, useState } from "react"
 import type { UserDetail } from "@/apis/user"
-export default function UseUserHome(userId) {
+export default function useUserHome(userId) {
   const [userInfo, setUserInfo] = useState<UserDetail>()
   const [userPlayList, setUserPlayList] = useState([])
   const [userDynamic, setUserDynamic] = useState<Dynamics>()
