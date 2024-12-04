@@ -2,7 +2,6 @@ import "./index.scss"
 import { useEffect, useRef, useState } from "react"
 import { getArtistListAPI } from "@/apis/singer"
 import FSegmented from "../FSegmented"
-import { current } from "@reduxjs/toolkit"
 
 const regionOptions = [
   { label: "全部", value: "-1" },
