@@ -10,6 +10,9 @@ export default function UserHome() {
   const [searchParams] = useSearchParams()
   const userId = searchParams.get("id")
   const { userInfo, userPlayList, userDynamic } = useUserHome(userId)
+  // const { authStatus } = userInfo?.profile
+  // console.log("是歌手吗？--->", authStatus)
+
   const items: TabsProps["items"] = [
     {
       key: "1",

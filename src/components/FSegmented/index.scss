@@ -1,0 +1,21 @@
+.F-Segmented-item-selected {
+  background-color: #d18389;
+}
+.F-Segmented-item-normal {
+  color: white;
+  &:hover {
+    background-color: #d18389;
+    color: white;
+  }
+}
+.F-Segmented {
+  display: flex;
+  .F-Segmented-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border-radius: 20px;
+    width: 70px;
+  }
+}

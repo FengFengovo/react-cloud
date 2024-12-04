@@ -61,6 +61,7 @@ export interface UserDetail {
     follows: number
     gender: number
     signature: string
+    authStatus: boolean
   }
 }
 export const getUserDetailAPI = (uid): Promise<UserDetail> => {

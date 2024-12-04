@@ -1,5 +1,5 @@
 import { Divider, message } from "antd"
-import { Suspense } from "react"
+import { Fragment } from "react"
 import { useAppSelector } from "@/store/hooks"
 import { likeCommentAPI } from "@/apis/song"
 import { useNavigate } from "react-router-dom"
@@ -28,7 +28,7 @@ export default function CommentItem({ CommentList }) {
     <>
       {CommentList?.map((item) => {
         return (
-          <Suspense key={item.commentId}>
+          <Fragment key={item.commentId}>
             <div className="flex mt-4">
               <img
                 className="w-40px h-40px rounded-full"
@@ -68,7 +68,7 @@ export default function CommentItem({ CommentList }) {
               </div>
             </div>
             <Divider />
-          </Suspense>
+          </Fragment>
         )
       })}
     </>

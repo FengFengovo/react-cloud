@@ -15,6 +15,7 @@
     "@lrc-player/core": "^1.1.4",
     "@lrc-player/parse": "^1.0.0",
     "@reduxjs/toolkit": "^2.3.0",
+    "ahooks": "^3.8.1",
     "antd": "^5.22.0",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",

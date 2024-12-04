@@ -14,15 +14,17 @@ const FComment = () => {
         //热门评论
         const hot = await getCommentByMusicIDAPI(songInfo?.id)
         //最近评论
-        const recently = await getRecentlyCommentAPI(songInfo?.id, page, cursor)
+        const recently = await getRecentlyCommentAPI(songInfo?.id, 1, cursor)
         setCursor(recently.data.cursor)
         setHotCommentList(hot?.data.comments)
         setRecentlyComment(recently?.data.comments)
       }
     }
+    //歌曲切换 重置评论为第一页
+    setPage(1)
+    setCursor("")
     getComment()
   }, [songInfo?.id])
-
   //获取更多评论
   const getMoreComment = async () => {
     setPage(page + 1)

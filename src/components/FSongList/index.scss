@@ -68,10 +68,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  &:active{
-
-  }
-
   // 添加内容缩放动画
   > td {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,11 +91,11 @@
     content: none !important;
   }
 }
-.ant-table-wrapper{
-  margin-top:0 !important;
-  margin-bottom:0 !important;
+.ant-table-wrapper {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
-.row-active{
+.row-active {
   background-color: #212127;
   transform: translateY(-2px) scale(1.002);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

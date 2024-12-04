@@ -1,0 +1,17 @@
+.initial {
+  .F-Segmented-item-normal {
+    color: white;
+    background-color: initial;
+    &:hover {
+      background-color: initial;
+      color: #fa3d49;
+    }
+  }
+  .F-Segmented-item {
+    margin: 0 0 0 0;
+  }
+  .F-Segmented-item-selected {
+    background-color: initial;
+    color: #fa3d49;
+  }
+}
