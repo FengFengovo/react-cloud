@@ -2,6 +2,7 @@ import "./index.scss"
 import { useEffect, useRef, useState } from "react"
 import { getArtistListAPI } from "@/apis/singer"
 import FSegmented from "../FSegmented"
+import { useNavigate } from "react-router-dom"
 
 const regionOptions = [
   { label: "全部", value: "-1" },
@@ -43,6 +44,7 @@ export default function FSingerFilter() {
   //歌手列表
   const [artistList, setArtistList] = useState([])
   const [page, setPage] = useState(0)
+  const navigate = useNavigate()
   const ref = useRef<HTMLDivElement>(null)
   //获取歌手列表
   const getArtistList = async (currentPage = 0) => {
@@ -58,12 +60,18 @@ export default function FSingerFilter() {
     setPage(0)
     getArtistList(0)
   }, [region, type, initial])
-
+  //加载更多
   const loadingMore = async () => {
     //储存遍历 避免state异步导致问题
     const nextPage = page + 1
     setPage(nextPage)
     await getArtistList(nextPage)
+  }
+  //点击某个歌手item时跳转到对应歌手页
+  const goSingerHome = (item) => {
+    navigate("singerhome", {
+      state: item,
+    })
   }
   return (
     <div>
@@ -93,12 +101,13 @@ export default function FSingerFilter() {
       >
         {artistList?.map((item) => (
           <div
+            onClick={() => goSingerHome(item)}
             key={item.id}
             className="flex-grow flex flex-col  hover:rounded-2xl hover:bg-white/7 cursor-pointer transition-all duration-300  hover:shadow-xl"
           >
             <img
-              className="w-150px mt-4 m-auto aspect-square rounded-full"
-              src={item.picUrl}
+              className="w-150px mt-4 m-auto object-cover aspect-square rounded-full"
+              src={item.img1v1Url}
             />
             <div className="flex flex-col items-center mt-4 text-white">
               <div className="text-4">{item.name}</div>

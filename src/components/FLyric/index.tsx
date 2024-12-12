@@ -92,8 +92,6 @@ const FLyric = ({ onClose, audioRef, onPlayerReady }) => {
       }
     }
   }, [isPlaying])
-  //跳转到评论页面
-  const goComment = () => {}
   return (
     <div className="relative z-10 container m-auto  h-full  ">
       {/* 歌曲信息 */}
@@ -106,15 +104,8 @@ const FLyric = ({ onClose, audioRef, onPlayerReady }) => {
           >
             &#xe626;
           </i>
-          <i
-            onClick={goComment}
-            className="iconfont mt-10px text-30px flex justify-center text-white  transition-all duration-500 hover:bg-white/8 hover:backdrop-blur-2xl cursor-pointer"
-          >
-            &#xe60a;
-          </i>
         </div>
 
-        {/*<i className={'iconfont text-white text-30px pt-20px'}>&#xe601;</i>*/}
         {/* 封面信息 */}
         <div>
           <img
@@ -130,7 +121,6 @@ const FLyric = ({ onClose, audioRef, onPlayerReady }) => {
               {songInfo?.ar?.map((item, index) => (
                 <span key={item.name}>
                   {" "}
-                  {/* 为了防止警告，建议为每个 span 添加一个唯一的 key */}
                   {item.name}
                   {index < songInfo.ar.length - 1 && " /"}
                 </span>

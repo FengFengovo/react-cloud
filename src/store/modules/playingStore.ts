@@ -18,6 +18,7 @@ interface PlayerState {
   } | null
   playList: any[]
   showPopurPage: boolean
+  audioRef: HTMLAudioElement
 }
 
 const playingStore = createSlice({

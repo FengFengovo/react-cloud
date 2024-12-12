@@ -105,8 +105,8 @@ export const getRecentlyCommentAPI = (
   })
 }
 //给评论点赞
-export const likeCommentAPI = (songId, cid) => {
+export const likeCommentAPI = (songId, cid, status) => {
   return request({
-    url: `/comment/like?id=${songId}&cid=${cid}&t=1&type=0`,
+    url: `/comment/like?id=${songId}&cid=${cid}&t=${status}&type=0`,
   })
 }

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { getRecentlyPlayedAPI } from "@/apis/song.ts"
 import { getMusicByKeyAPI } from "@/apis/search.ts"
 import { useLocation, useSearchParams } from "react-router-dom"
+import { getAllSongsBySingerIdAPI } from "@/apis/singer"
 
 interface Info {
   coverImgUrl: string
@@ -94,6 +95,14 @@ function useGetList() {
         setIsLoading(false)
       }
     }
+    //获取歌手所有音乐
+    const getAllSongsBySingerId = async () => {
+      console.log(location.state.id)
+      const res = await getAllSongsBySingerIdAPI(location.state.id)
+      console.log(res)
+      setPlayList(res.songs)
+      setIsLoading(false)
+    }
     if (location.pathname === "/search" && key) {
       getMusicByKey(key)
     }
@@ -105,6 +114,9 @@ function useGetList() {
     }
     if (location.pathname === "/dailySongs") {
       getDailyList()
+    }
+    if (location.pathname === "/singerhome") {
+      getAllSongsBySingerId()
     }
   }, [id, key])
   return {

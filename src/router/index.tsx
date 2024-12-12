@@ -9,6 +9,7 @@ const PlayList = lazy(() => import("@/views/PlayList"))
 const Recently = lazy(() => import("@/views/Recently"))
 const Search = lazy(() => import("@/views/Search"))
 const UserHome = lazy(() => import("@/views/UserHome"))
+const SingerHome = lazy(() => import("@/views/SingerHome"))
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={""}>
             <UserHome />
+          </Suspense>
+        ),
+      },
+      {
+        path: "singerhome",
+        element: (
+          <Suspense fallback={""}>
+            <SingerHome />
           </Suspense>
         ),
       },

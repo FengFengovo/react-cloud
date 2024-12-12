@@ -9,7 +9,6 @@ function RecommendList({ recommend }) {
   useEffect(() => {
     const getTopDetail = async () => {
       const res = await getTopDetailAPI()
-      console.log(res)
       setTopList(res.list)
     }
     getTopDetail()

@@ -40,12 +40,13 @@ function createWindow() {
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
-      devTools: true,
+      // devTools: true,
     },
     frame: false,
   })
   win.setMovable(true)
-  win.webContents.openDevTools()
+  //控制台启用
+  // win.webContents.openDevTools()
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {

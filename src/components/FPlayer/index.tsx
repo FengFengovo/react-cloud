@@ -7,13 +7,11 @@ import PlayerCenter from "@/components/FPlayer/Center"
 import { useAppSelector } from "@/store/hooks"
 import { useEffect, useRef, useState } from "react"
 import FPopupPage from "@/components/FPopupPage"
-import dayjs from "dayjs"
-import duration from "dayjs/plugin/duration"
+
 import usePlayingMusic from "@/hooks/usePlayingMusic.ts"
 import { useAppDispatch } from "@/store/hooks"
 import { setshowPopurPage } from "@/store/modules/playingStore"
 
-dayjs.extend(duration)
 const FPlayer = () => {
   // 创建对 audio 元素的引用
   const dispatch = useAppDispatch()
@@ -69,6 +67,7 @@ const FPlayer = () => {
       playerMethods?.syncIndex()
     }
   }
+
   //监听音乐播放结束
   useEffect(() => {
     const audio = audioRef.current
@@ -125,7 +124,7 @@ const FPlayer = () => {
       <FPopupPage
         audioRef={audioRef}
         isShow={showPopurPage}
-        onPlayerReady={handlePlayerReady} // 新增：传递回调函数
+        onPlayerReady={handlePlayerReady}
       />
     </div>
   )

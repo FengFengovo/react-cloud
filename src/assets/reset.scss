@@ -9,14 +9,15 @@ body,
 .drag {
   -webkit-app-region: drag; //设置头部可拖拽
 }
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
   font-family: "iconfont"; /* Project id 4745381 */
   src:
-    url("//at.alicdn.com/t/c/font_4745381_xyl4x8kw95r.woff2?t=1732891454070")
+    url("//at.alicdn.com/t/c/font_4745381_forn2cd4abn.woff2?t=1733986560531")
       format("woff2"),
-    url("//at.alicdn.com/t/c/font_4745381_xyl4x8kw95r.woff?t=1732891454070")
+    url("//at.alicdn.com/t/c/font_4745381_forn2cd4abn.woff?t=1733986560531")
       format("woff"),
-    url("//at.alicdn.com/t/c/font_4745381_xyl4x8kw95r.ttf?t=1732891454070")
+    url("//at.alicdn.com/t/c/font_4745381_forn2cd4abn.ttf?t=1733986560531")
       format("truetype");
 }
 @font-face {
@@ -27,6 +28,11 @@ body,
   font-family: "PingFang SC Heavy";
   src: url("./font/PingFang Heavy.otf");
 }
+@font-face {
+  font-family: "gete";
+  src: url(./font/DemonLetter-2.ttf) format("truetype");
+}
+
 .iconfont {
   font-family: "iconfont", serif !important;
   font-size: 16px;
@@ -51,11 +57,7 @@ body,
   }
 
   &::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #13131a;
+    background: inherit;
     border-radius: 4px;
   }
   &::-webkit-scrollbar-thumb {

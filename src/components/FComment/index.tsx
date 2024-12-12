@@ -35,7 +35,7 @@ const FComment = () => {
     setCursor(res.data.cursor)
   }
   return (
-    <div className="h-full pt-4 text-white">
+    <div className="h-full pt-4 text-white ">
       <div className="w-90% m-auto">
         <h2>热门评论</h2>
         <CommentItem CommentList={hotCommentList} />
@@ -43,7 +43,7 @@ const FComment = () => {
         <CommentItem CommentList={recentlyComment} />
         <div
           onClick={getMoreComment}
-          className="flex justify-center cursor-pointer pb-20px"
+          className="flex justify-center cursor-pointer pb-90px pt-30px"
         >
           更多评论
         </div>

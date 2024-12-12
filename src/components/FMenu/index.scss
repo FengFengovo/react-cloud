@@ -1,27 +1,26 @@
-.ant-divider{
+.ant-divider {
   margin: 8px !important;
-
 }
-.ant-menu{
+.ant-menu {
   width: 90%;
   margin: 0 auto;
   background-color: #eceff2;
-  border-right:none !important;
-  .ant-menu-item{
+  border-right: none !important;
+  .ant-menu-item {
     display: flex;
     align-items: center;
     color: #cacaca !important;
-    &:hover{
+    &:hover {
       background-color: white !important;
       color: #1d1a1a !important;
     }
   }
-  .ant-menu-item-selected{
+  .ant-menu-item-selected {
     background-color: #fa3d49;
     color: #fff !important;
   }
 }
-.ant-menu-item-divider{
+.ant-menu-item-divider {
   width: 80%;
   margin: 0 auto;
   background-color: #ede5e5;
