@@ -1,13 +1,14 @@
-.ant-slider-handle {
-  &::after {
+.ant-slider-handle{
+  &::after{
     width: 6px !important;
     height: 6px !important;
     position: relative;
     top: -2px !important;
     display: none;
   }
+
 }
-.ant-slider {
+.ant-slider{
   position: relative;
   top: 0 !important;
   margin: 0 !important;
@@ -21,11 +22,10 @@
 
     .ant-slider-track {
       filter: brightness(1.1) !important;
-      height: 5px !important;
     }
   }
 }
-.ant-slider-track {
-  background: #2f94f9 !important;
+.ant-slider-track{
+  background: linear-gradient(to right, #8EC5FC, #E0C3FC) !important;
   height: 4px !important;
 }
