@@ -1,0 +1,192 @@
+.ranking-list-container {
+  width: 100%;
+  height: 100%;
+
+  .region-tabs {
+    margin-bottom: 24px;
+
+    :global {
+      .ant-tabs-nav {
+        &::before {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+      }
+
+      .ant-tabs-tab {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 16px;
+        padding: 12px 24px;
+
+        &:hover {
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        &.ant-tabs-tab-active {
+          .ant-tabs-tab-btn {
+            color: #1890ff;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .ant-tabs-ink-bar {
+        background: #1890ff;
+      }
+    }
+  }
+
+  .artist-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 16px;
+    padding-bottom: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .artist-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+
+    &:hover {
+      border-color: white;
+    }
+  }
+
+  .artist-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .rank-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 50px;
+  }
+
+  .rank-number {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+
+    &.rank-first {
+      background: #ffed4e;
+      color: #8b4513;
+      font-size: 24px;
+    }
+
+    &.rank-second {
+      background: #e8e8e8;
+      color: #4a4a4a;
+      font-size: 22px;
+    }
+
+    &.rank-third {
+      background: #e8a87c;
+      color: #fff;
+      font-size: 20px;
+    }
+  }
+
+  .rank-change {
+    font-size: 12px;
+    font-weight: 600;
+
+    .rank-up {
+      color: #52c41a;
+    }
+
+    .rank-down {
+      color: #ff4d4f;
+    }
+
+    .rank-same {
+      color: rgba(255, 255, 255, 0.45);
+    }
+  }
+
+  .artist-avatar {
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .artist-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .artist-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .artist-alias {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .artist-stats {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+
+    span {
+      margin-right: 12px;
+    }
+  }
+
+  .artist-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    min-width: 70px;
+  }
+
+  .score-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 4px;
+  }
+
+  .score-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+
+  :global {
+    .ant-spin-container {
+      min-height: 400px;
+    }
+
+    .ant-spin-spinning {
+      .artist-list {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+}

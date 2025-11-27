@@ -86,6 +86,7 @@ interface CommentList {
     ]
     cursor: string
     liked: boolean
+    hasMore: boolean
   }
 }
 //获取热门评论接口

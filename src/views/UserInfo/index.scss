@@ -1,0 +1,75 @@
+.user-info-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  /* 自定义标题栏样式 */
+  .custom-titlebar {
+    height: 32px;
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    -webkit-app-region: drag;
+    user-select: none;
+
+    .titlebar-title {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .titlebar-controls {
+      display: flex;
+      -webkit-app-region: no-drag;
+
+      .titlebar-button {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          color: red;
+        }
+
+        &.close:hover {
+          color: red;
+        }
+      }
+    }
+  }
+
+  /* 内容区域 */
+  .user-info-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ant-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .ant-descriptions-bordered .ant-descriptions-item-label {
+    background-color: #fafafa;
+    font-weight: 500;
+  }
+
+  .ant-avatar {
+    border: 3px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}

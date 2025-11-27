@@ -1,10 +1,11 @@
 .F-Segmented-item-selected {
-  background-color: #d18389;
+  background-color: #fa3d49;
+  color: white;
 }
 .F-Segmented-item-normal {
   color: white;
   &:hover {
-    background-color: #d18389;
+    background-color: #fa3d49;
     color: white;
   }
 }

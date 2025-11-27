@@ -15,7 +15,7 @@ function RecommendList({ recommend }) {
   }, [])
   return (
     <div className={"h-full w-full flex flex-col items-center justify-center"}>
-      <div className={"flex flex-wrap gap-4"}>
+      <div className={"h-full flex flex-wrap gap-4"}>
         <div
           onClick={() => navigate("/dailySongs")}
           className={

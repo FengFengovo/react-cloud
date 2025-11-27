@@ -3,7 +3,7 @@ import "./index.scss"
 import { ManOutlined, PlusOutlined, WomanOutlined } from "@ant-design/icons"
 import { Tabs, TabsProps } from "antd"
 import UserPlayList from "./components/UserPlayList"
-import useUserHome from "./useUserHome"
+import useUserHome from "./UseUserHome"
 import UserDynamic from "./components/UserDynamic"
 
 export default function UserHome() {

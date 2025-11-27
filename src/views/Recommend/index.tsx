@@ -4,6 +4,7 @@ import RecommendList from "@/views/Recommend/compenents/RecommendList.tsx"
 import { useEffect, useState } from "react"
 import { getResourceAPI } from "@/apis/recommend.ts"
 import FSingerFilter from "@/components/FSingerFilter"
+import RankingList from "./compenents/RankingList"
 
 const Recommend = () => {
   const [recommend, setRecommend] = useState([])
@@ -17,7 +18,7 @@ const Recommend = () => {
     {
       key: "2",
       label: "排行榜",
-      children: "Content of Tab Pane 2",
+      children: <RankingList />,
     },
     {
       key: "3",
