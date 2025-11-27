@@ -1,4 +1,4 @@
-import { createHashRouter } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom"
 
 import CloudLayout from "@/pages/Layout"
 import { lazy, Suspense } from "react"
@@ -10,9 +10,8 @@ const Recently = lazy(() => import("@/views/Recently"))
 const Search = lazy(() => import("@/views/Search"))
 const UserHome = lazy(() => import("@/views/UserHome"))
 const SingerHome = lazy(() => import("@/views/SingerHome"))
-const UserInfo = lazy(() => import("@/views/UserInfo"))
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <CloudLayout />,
@@ -74,14 +73,6 @@ const router = createHashRouter([
         ),
       },
     ],
-  },
-  {
-    path: "/userinfo",
-    element: (
-      <Suspense fallback={""}>
-        <UserInfo />
-      </Suspense>
-    ),
   },
 ])
 export default router

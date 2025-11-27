@@ -65,8 +65,7 @@ const FPopupPage = ({ isShow, audioRef, onPlayerReady }) => {
         >
           <FComment />
         </div>
-        {/* 底部 */}
-        <div></div>
+        <div className="bottom-0 h-60px sticky  bg-red w-full "></div>
       </div>
     </div>
   )

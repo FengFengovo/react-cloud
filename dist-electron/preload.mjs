@@ -18,8 +18,7 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
     return electron.ipcRenderer.invoke(channel, ...omit);
   },
   closeWindow: () => electron.ipcRenderer.send("window-close"),
-  minimizeWindow: () => electron.ipcRenderer.send("window-minimize"),
-  openUserInfoWindow: () => electron.ipcRenderer.send("open-userinfo-window")
+  minimizeWindow: () => electron.ipcRenderer.send("window-minimize")
   // You can expose other APTs you need here.
   // ...
 });
